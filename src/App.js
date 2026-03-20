@@ -1,14 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './component/ui/Header';
+import Footer from './component/ui/Footer';
+import PageHome from './pages/client/home';
 
-function App() {
+const App = () => {
   return (
     <>
       <Header />
         <PageHome/>
+
       <Footer/>
     </>
   );
-}
+};
 
 export default App;
