@@ -1,0 +1,105 @@
+/* Header Background */
+.blog-header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.pinimg.com/736x/48/af/61/48af61d3c43874b66414ca52e322d45a.jpg'); /* Thay link ảnh thật của bạn */
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    color: #fff;
+}
+
+.blog-header h2 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+/* Card Styling */
+/* Container bài viết */
+.blog-card {
+  position: relative;
+  background-color: transparent;
+  margin-bottom: 40px; /* Tạo khoảng cách cho phần text đè xuống */
+}
+
+/* Ảnh nền */
+.blog-img-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 270px; /* Điều chỉnh chiều cao phù hợp với ảnh mẫu */
+}
+
+.blog-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0; /* Ảnh vuông vắn theo mẫu */
+}
+
+/* Khối văn bản màu trắng đè lên ảnh */
+.blog-text-container {
+  background-color: #ffffff;
+  width: 85%;      /* Không chiếm hết chiều ngang */
+  margin: -40px auto 0 auto; /* Quan trọng: Lề âm để đè lên ảnh */
+  position: relative;
+  z-index: 2;
+  padding: 25px 30px;
+  box-shadow: none; /* Hình mẫu không thấy bóng đổ rõ rệt */
+}
+
+/* Ngày tháng */
+.blog-date {
+  font-size: 14px;
+  color: #888888;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-icon {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* Tiêu đề bài viết */
+.blog-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #111111;
+  margin-bottom: 20px;
+  /* Giới hạn 2 dòng để đều layout */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Link Đọc thêm */
+.read-more-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.read-more-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #111111; /* Đường gạch chân đậm */
+  transition: all 0.3s ease;
+}
+
+.read-more-link:hover {
+  color: #e53637; /* Màu đỏ đặc trưng của template Male Fashion khi hover */
+  border-color: #e53637;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .blog-text-container {
+    width: 90%;
+    padding: 20px;
+  }
+}
