@@ -5,11 +5,10 @@ import {
   Row,
   Col,
   Form,
-  Button,
-  Card,
   Accordion,
   Pagination,
 } from 'react-bootstrap';
+import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 
 const Product = () => {
   const allKeys = ['0', '1', '2', '3', '4', '5'];
@@ -89,7 +88,7 @@ const Product = () => {
       name: 'Khăn choàng basic',
       price: 26.28,
       img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    }
+    },
   ];
   return (
     <div>
@@ -116,7 +115,7 @@ const Product = () => {
                   />
                   <i className='bi bi-search search-icon'></i>{' '}
                   {/* Sử dụng bootstrap icons hoặc emoji */}
-                  <span className='search-emoji'>🔍</span>
+                  <span className='search-emoji'><FaSearch/></span>
                 </div>
               </div>
 
@@ -224,29 +223,23 @@ const Product = () => {
 
           {/* Products */}
           <Col lg={9}>
-            {/* GRID */}
             <Row>
               {products.map((item) => (
-                <Col lg={4} md={6} key={item.id}>
-                  <div className='product-item'>
-                    {/* IMAGE */}
-                    <div className='product-img'>
-                      <img src={item.img} alt={item.name} />
-
-                      {/* HOVER ADD TO CART */}
-                      <div className='hover-cart'>+ Thêm vào giỏ hàng</div>
+                <Col lg={4} md={6} key={item.id} className='mb-4'>
+                  <div className='product-card text-center position-relative'>
+                    <div className='product-img mb-3 overflow-hidden position-relative'>
+                      <img src={item.img} alt={item.name} className='img-fluid w-100' />
+                      <div className='product-hover-overlay'>
+                        <FaShoppingCart />
+                      </div>
                     </div>
-
-                    {/* TEXT */}
-                    <div className='product-text'>
-                      <h6>{item.name}</h6>
-                      <h5>${item.price}</h5>
-                    </div>
+                    <h6 className='fw-bold'>{item.name}</h6>
+                    <p className='text-danger fw-bold'>{item.price}</p>
                   </div>
                 </Col>
               ))}
             </Row>
-
+  
             {/* PAGINATION */}
             <Pagination className='justify-content-center mt-4 custom-pagination'>
               <Pagination.Item active>1</Pagination.Item>

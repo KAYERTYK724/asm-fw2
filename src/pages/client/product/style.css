@@ -159,68 +159,29 @@
 }
 
 /* PRODUCT */
-.product-item {
-  margin-bottom: 40px;
+.product-card img {
+    transition: 0.4s;
 }
 
-/* IMAGE */
-.product-img {
-  position: relative;
-  background: #f3f3f3;
-  padding: 20px;
-  overflow: hidden;
+.product-card:hover img {
+    transform: scale(1.05);
 }
 
-.product-img img {
-  width: 100%;
-  object-fit: cover;
+.product-hover-overlay {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.9);
+    padding: 10px;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-/* SALE LABEL */
-.label {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: black;
-  color: white;
-  font-size: 11px;
-  padding: 4px 8px;
-  letter-spacing: 1px;
-}
-
-/* HOVER CART */
-.hover-cart {
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  background: black;
-  color: white;
-  padding: 10px 0;
-  font-size: 13px;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.product-img:hover .hover-cart {
-  bottom: 0;
-}
-
-/* TEXT */
-.product-text {
-  padding-top: 15px;
-}
-
-.product-text h6 {
-  font-size: 14px;
-  margin-bottom: 5px;
-  font-weight: 400;
-}
-
-.product-text h5 {
-  font-size: 16px;
-  font-weight: 700;
+.product-card:hover .product-hover-overlay {
+    bottom: 0;
 }
 
 /* PAGINATION */

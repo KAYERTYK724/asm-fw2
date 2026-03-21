@@ -1,12 +1,7 @@
-/* eslint-disable jsx-a11y/alt-text */
-
+// /* eslint-disable jsx-a11y/alt-text */
 import './style.css';
-import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import { FaArrowLeft, FaArrowRight, FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { Container, Button, Row, Col, Card} from 'react-bootstrap';
+import { FaArrowLeft, FaArrowRight, FaFacebookF, FaTwitter, FaInstagram, FaShoppingCart } from 'react-icons/fa';
 
 const PageHome = () => {
   const products = [
@@ -139,30 +134,21 @@ const PageHome = () => {
       {/* PRODUCTS */}
       <section className='product-section py-5'>
         <Container>
-          <h2 className='text-center mb-5'>Sản phẩm bán chạy</h2>
+          <h2 className='text-center mb-5 text-h2'>Sản phẩm bán chạy</h2>
 
           <Row className='g-4'>
             {products.map((p, i) => (
-              <Col lg={3} md={6} key={i}>
-                <Card className='product-card'>
-                  {/* IMAGE */}
-                  <div className='product-img'>
-                    <img src={p.img} alt={p.name} />
-
-                    {/* HOVER OVERLAY */}
-                    <div className='overlay'>
-                      <Button variant='dark' size='sm'>
-                        Thêm vào giỏ
-                      </Button>
+              <Col lg={3} md={6} sm={6} key={p.id} className='mb-4'>
+                <div className='product-card text-center position-relative'>
+                  <div className='product-img mb-3 overflow-hidden position-relative'>
+                    <img src={p.img} alt={p.name} className='img-fluid w-100' />
+                    <div className='product-hover-overlay'>
+                      <FaShoppingCart />
                     </div>
                   </div>
-
-                  {/* INFO */}
-                  <Card.Body className='text-center'>
-                    <Card.Title className='product-title'>{p.name}</Card.Title>
-                    <div className='price'>{p.price}</div>
-                  </Card.Body>
-                </Card>
+                  <h6 className='fw-bold'>{p.name}</h6>
+                  <p className='text-danger fw-bold'>{p.price}</p>
+                </div>
               </Col>
             ))}
           </Row>
@@ -237,12 +223,12 @@ const PageHome = () => {
             {/* GRID */}
             <Col md={8}>
               <div className='instagram-grid'>
-                <img src='https://i.pinimg.com/736x/9a/b1/2f/9ab12fd7e62ee1592c3ab8ada966e71e.jpg' />
-                <img src='https://i.pinimg.com/736x/a9/d2/02/a9d2021edbdf4e38d87da75db5af81dd.jpg' />
-                <img src='https://i.pinimg.com/736x/83/a2/42/83a24247c4520e1e13569c4299c7c039.jpg' />
-                <img src='https://i.pinimg.com/736x/fa/44/f2/fa44f27d2d155f094c45930be83ede04.jpg' />
-                <img src='https://i.pinimg.com/736x/5e/ba/f2/5ebaf2fbeac63d4850ba7226704fd789.jpg' />
-                <img src='https://i.pinimg.com/736x/09/03/8c/09038ce2f04586e085df81e7d01e773b.jpg' />
+                <img src='https://i.pinimg.com/736x/9a/b1/2f/9ab12fd7e62ee1592c3ab8ada966e71e.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/a9/d2/02/a9d2021edbdf4e38d87da75db5af81dd.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/83/a2/42/83a24247c4520e1e13569c4299c7c039.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/fa/44/f2/fa44f27d2d155f094c45930be83ede04.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/5e/ba/f2/5ebaf2fbeac63d4850ba7226704fd789.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/09/03/8c/09038ce2f04586e085df81e7d01e773b.jpg' alt=""/>
               </div>
             </Col>
 
