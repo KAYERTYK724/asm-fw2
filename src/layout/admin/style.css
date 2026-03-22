@@ -1,0 +1,29 @@
+/* Variables.css */
+:root {
+    --primary: #EB1616;   /* Màu đỏ đặc trưng DarkPan */
+    --secondary: #191C24; /* Màu nền Card/Sidebar */
+    --dark: #000000;      /* Màu nền tổng thể */
+    --light: #6C7293;     /* Màu chữ phụ */
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+/* Khung nội dung chính bên phải */
+.content {
+    background: var(--dark);
+    margin-left: 250px;
+    min-height: 100vh;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Trạng thái khi Sidebar bị ẩn */
+.sidebar-toggled .content {
+    margin-left: 0;
+}
