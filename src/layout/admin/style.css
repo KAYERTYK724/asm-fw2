@@ -1,21 +1,16 @@
 /* Variables.css */
-:root {
+body {
     --primary: #EB1616;   /* Màu đỏ đặc trưng DarkPan */
     --secondary: #191C24; /* Màu nền Card/Sidebar */
-    --dark: #000000;      /* Màu nền tổng thể */
-    --light: #6C7293;     /* Màu chữ phụ */
-}
-
-body {
-    background-color: var(--dark);
-    color: var(--light);
+    background-color: #000000;
+    color: #6C7293;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
 }
 
 /* Khung nội dung chính bên phải */
 .content {
-    background: var(--dark);
+    background: #000000;
     margin-left: 250px;
     min-height: 100vh;
     transition: 0.5s;

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
-import { FaUserEdit, FaTachometerAlt, FaTh, FaKeyboard, FaTable, FaChartBar, FaFileAlt } from 'react-icons/fa';
+import { FaUserEdit, FaTachometerAlt, FaCube } from 'react-icons/fa';
 import './style.css';
 
 const SidebarAdmin = () => {
@@ -21,12 +22,12 @@ const SidebarAdmin = () => {
                     </div>
                 </div>
                 <Nav className="navbar-nav w-100 flex-column">
-                    <Nav.Link href="#" className="active"><FaTachometerAlt className="me-2" />Bảng điều khiển</Nav.Link>
-                    <Nav.Link href="#"><FaTh className="me-2" />Tiện ích (Widgets)</Nav.Link>
-                    <Nav.Link href="#"><FaKeyboard className="me-2" />Biểu mẫu</Nav.Link>
-                    <Nav.Link href="#"><FaTable className="me-2" />Bảng biểu</Nav.Link>
-                    <Nav.Link href="#"><FaChartBar className="me-2" />Biểu đồ</Nav.Link>
-                    <Nav.Link href="#"><FaFileAlt className="me-2" />Trang mẫu</Nav.Link>
+                    <Nav.Link as={Link} to='/admin/dashboard' className="active"><FaTachometerAlt className="me-2" />DASHBOARD</Nav.Link>
+                    <Nav.Link href="#"><FaCube className="me-2" />DANH MỤC</Nav.Link>
+                    <Nav.Link href="#"><FaCube className="me-2" />SẢN PHẨM</Nav.Link>
+                    <Nav.Link href="#"><FaCube className="me-2" />BÌNH LUẬN</Nav.Link>
+                    <Nav.Link href="#"><FaCube className="me-2" />ĐƠN HÀNG</Nav.Link>
+                    <Nav.Link href="#"><FaCube className="me-2" />NGƯỜI DÙNG</Nav.Link>
                 </Nav>
             </nav>
         </div>

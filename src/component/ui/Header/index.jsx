@@ -1,4 +1,5 @@
 import './style.css';
+import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
@@ -38,9 +39,9 @@ const Header = () => {
           <Navbar.Collapse>
             {/* MENU */}
             <Nav className='mx-auto menu'>
-              <Nav.Link className='active'>TRANG CHỦ</Nav.Link>
-              <Nav.Link>CỬA HÀNG</Nav.Link>
-              <Nav.Link>TIN TỨC</Nav.Link>
+              <Nav.Link as={Link} to='/' className='active'>TRANG CHỦ</Nav.Link>
+              <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
+              <Nav.Link  as={Link} to='/blog'>TIN TỨC</Nav.Link>
               <Nav.Link>GIỚI THIỆU</Nav.Link>
               <Nav.Link>LIÊN HỆ</Nav.Link>
             </Nav>
