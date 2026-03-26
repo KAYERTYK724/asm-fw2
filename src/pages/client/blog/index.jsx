@@ -91,7 +91,7 @@ const Blog = () => {
                     <h5 className='blog-title'>{blog.title}</h5>
                     <div className='read-more-wrapper'>
                       <a href={`/blog/${blog.id}`} className='read-more-link'>
-                        ĐỌC THÊM
+                        ĐỌC THÊM BÀI VIẾT
                       </a>
                     </div>
                   </div>
