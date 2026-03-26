@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageHome from './pages/client/home';
@@ -7,6 +7,9 @@ import ProductDetails from './pages/client/detailProduct';
 import Blog from './pages/client/blog';
 import BlogDetails from './pages/client/detailBlog';
 import Dashboard from './pages/admin/dashboard';
+import BlogListAdmin from './pages/admin/blog';
+import AddBlog from './pages/admin/blog/add';
+import BlogDetail from './pages/admin/blog/view';
 import ClientLayout from './layout/client/client-layout';
 import AdminLayout from './layout/admin/admin-layout';
 
@@ -25,6 +28,9 @@ const App = () => {
         {/* Admin */}
         <Route path='/admin' element={<AdminLayout/>}>
           <Route path='dashboard' element={<Dashboard/>}/>
+          <Route path='blogAdmin' element={<BlogListAdmin/>}/>
+          <Route path='addBlog' element={<AddBlog/>}/>
+          <Route path='viewBlog' element={<BlogDetail/>}/>
         </Route> 
       </Routes>
     </>

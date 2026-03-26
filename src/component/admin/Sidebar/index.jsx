@@ -27,6 +27,7 @@ const SidebarAdmin = () => {
                     <Nav.Link href="#"><FaCube className="me-2" />SẢN PHẨM</Nav.Link>
                     <Nav.Link href="#"><FaCube className="me-2" />BÌNH LUẬN</Nav.Link>
                     <Nav.Link href="#"><FaCube className="me-2" />ĐƠN HÀNG</Nav.Link>
+                    <Nav.Link as={Link} to='/admin/blogAdmin'><FaCube className="me-2" />BÀI VIẾT</Nav.Link>
                     <Nav.Link href="#"><FaCube className="me-2" />NGƯỜI DÙNG</Nav.Link>
                 </Nav>
             </nav>
