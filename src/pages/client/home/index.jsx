@@ -1,5 +1,6 @@
 // /* eslint-disable jsx-a11y/alt-text */
 import './style.css';
+import { Link } from 'react-router-dom';
 import { Container, Button, Row, Col, Card} from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight, FaFacebookF, FaTwitter, FaInstagram, FaShoppingCart } from 'react-icons/fa';
 
@@ -138,17 +139,19 @@ const PageHome = () => {
 
           <Row className='g-4'>
             {products.map((p, i) => (
-              <Col lg={3} md={6} sm={6} key={p.id} className='mb-4'>
-                <div className='product-card text-center position-relative'>
-                  <div className='product-img mb-3 overflow-hidden position-relative'>
-                    <img src={p.img} alt={p.name} className='img-fluid w-100' />
-                    <div className='product-hover-overlay'>
-                      <FaShoppingCart />
+              <Col lg={3} md={6} sm={6} key={p.id} className='mb-4' >
+                <Link to='/detailShop' className='text-decoration-none text-black'>
+                  <div className='product-card text-center position-relative'>
+                    <div className='product-img mb-3 overflow-hidden position-relative'>
+                      <img src={p.img} alt={p.name} className='img-fluid w-100' />
+                      <div className='product-hover-overlay'>
+                        <FaShoppingCart />
+                      </div>
                     </div>
+                    <h6 className='fw-bold'>{p.name}</h6>
+                    <p className='text-danger fw-bold'>{p.price}</p>
                   </div>
-                  <h6 className='fw-bold'>{p.name}</h6>
-                  <p className='text-danger fw-bold'>{p.price}</p>
-                </div>
+                </Link>
               </Col>
             ))}
           </Row>

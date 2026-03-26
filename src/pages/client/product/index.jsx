@@ -1,13 +1,7 @@
 import './style.css';
 import React from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Accordion,
-  Pagination,
-} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Form, Accordion, Pagination,} from 'react-bootstrap';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 
 const Product = () => {
@@ -226,16 +220,18 @@ const Product = () => {
             <Row>
               {products.map((item) => (
                 <Col lg={4} md={6} key={item.id} className='mb-4'>
-                  <div className='product-card text-center position-relative'>
-                    <div className='product-img mb-3 overflow-hidden position-relative'>
-                      <img src={item.img} alt={item.name} className='img-fluid w-100' />
-                      <div className='product-hover-overlay'>
-                        <FaShoppingCart />
+                  <Link to='/detailShop' className='text-decoration-none text-black'>
+                    <div className='product-card text-center position-relative'>
+                      <div className='product-img mb-3 overflow-hidden position-relative'>
+                        <img src={item.img} alt={item.name} className='img-fluid w-100' />
+                        <div className='product-hover-overlay'>
+                          <FaShoppingCart />
+                        </div>
                       </div>
+                      <h6 className='fw-bold'>{item.name}</h6>
+                      <p className='text-danger fw-bold'>{item.price}</p>
                     </div>
-                    <h6 className='fw-bold'>{item.name}</h6>
-                    <p className='text-danger fw-bold'>{item.price}</p>
-                  </div>
+                  </Link>
                 </Col>
               ))}
             </Row>

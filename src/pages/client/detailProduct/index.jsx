@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
-import { FaStar, FaRegStar, FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import './style.css';
 
 const ProductDetails = () => {
@@ -130,15 +130,6 @@ const ProductDetails = () => {
           <Col lg={8}>
             <div className='product__details__text'>
               <h4 className='fw-bold mb-2'>Áo khoác Anorak nhiệt có mũ</h4>
-
-              <div className='rating mb-2'>
-                <FaStar className='star-active' />
-                <FaStar className='star-active' />
-                <FaStar className='star-active' />
-                <FaStar className='star-active' />
-                <FaRegStar className='star-inactive' />
-                <span className='ms-2 text-muted'>- 5 Đánh giá</span>
-              </div>
 
               <h3 className='price-detail mb-4'>
                 $270.00 <span className='old-price'>$370.00</span>

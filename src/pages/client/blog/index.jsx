@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import './style.css';
 
@@ -90,9 +91,9 @@ const Blog = () => {
                     </div>
                     <h5 className='blog-title'>{blog.title}</h5>
                     <div className='read-more-wrapper'>
-                      <a href={`/blog/${blog.id}`} className='read-more-link'>
+                      <Link to='/detailBlog' className='read-more-link'>
                         ĐỌC THÊM BÀI VIẾT
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </Card>
