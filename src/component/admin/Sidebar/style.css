@@ -30,7 +30,7 @@
 .sidebar .nav-link:hover, 
 .sidebar .nav-link.active {
     color: var(--primary) !important;
-    background: var(--dark);
+    background: #000;
     border-left: 3px solid var(--primary);
 }
 

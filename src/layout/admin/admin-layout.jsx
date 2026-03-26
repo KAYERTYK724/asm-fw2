@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Outlet } from "react-router-dom";
 import SidebarAdmin from '../../component/admin/Sidebar';
 import HeaderAdmin from '../../component/admin/Header';
 import FooterAdmin from '../../component/admin/Footer';
-import Dashboard from '../../pages/admin/dashboard';
 import './style.css';
 
 const AdminLayout = () => {
@@ -13,7 +13,7 @@ const AdminLayout = () => {
             <SidebarAdmin />
             <div className="content">
                 <HeaderAdmin toggleSidebar={() => setSidebarActive(!sidebarActive)} />
-                <Dashboard />
+                    <Outlet/>
                 <FooterAdmin />
             </div>
         </div>
