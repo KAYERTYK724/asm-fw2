@@ -30,8 +30,8 @@ const Header = () => {
       <Navbar expand='lg' className='main-navbar'>
         <Container>
           {/* LOGO */}
-          <Navbar.Brand className='logo'>
-            Male fashion<span className='dot'>.</span>
+          <Navbar.Brand className='logo fs-3'>
+            <span className='text-danger'>Male </span>fashion<span className='dot'>.</span>
           </Navbar.Brand>
 
           <Navbar.Toggle />

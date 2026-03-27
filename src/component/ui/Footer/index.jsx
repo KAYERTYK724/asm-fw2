@@ -13,9 +13,9 @@ const Footer = () => {
             <Col lg={3} md={6}>
               <div className='footer-about'>
                 <h3 className='logo'>
-                  Male fashion<span>.</span>
+                  <span className='text-danger'>Male </span>fashion<span>.</span>
                 </h3>
-                <p>
+                <p className='text-danger'>
                   Khách hàng là trung tâm trong mô hình kinh doanh của chúng tôi, bao gồm cả
                   thiết kế.
                 </p>
