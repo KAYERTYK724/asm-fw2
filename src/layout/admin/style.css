@@ -1,9 +1,9 @@
 /* Variables.css */
 :root {
-    --primary: #EB1616;   /* Màu đỏ đặc trưng DarkPan */
-    --secondary: #191C24; /* Màu nền Card/Sidebar */
-    --dark: #000000;      /* Màu nền tổng thể */
-    --light: #6C7293;     /* Màu chữ phụ */
+    --primary: #EB1616;
+    --secondary: #191C24;
+    --dark: #000000;
+    --light: #6C7293;
 }
 
 body {
@@ -13,14 +13,23 @@ body {
     margin: 0;
 }
 
+/* Khung tổng */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
 /* Khung nội dung chính bên phải */
 .content {
     background: var(--dark);
     margin-left: 250px;
     min-height: 100vh;
+    height: fit-content;
     transition: 0.5s;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    padding-bottom: 24px;
 }
 
 /* Trạng thái khi Sidebar bị ẩn */

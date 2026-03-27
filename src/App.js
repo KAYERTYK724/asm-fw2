@@ -1,31 +1,28 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Header from './component/ui/Header';
-// import Footer from './component/ui/Footer';
-// import PageHome from './pages/client/home';
-// import Product from './pages/client/product';
-// import ProductDetails from './pages/client/detailProduct';
-// import Blog from './pages/client/blog';
-// import BlogDetails from './pages/client/detailBlog';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-// import HeaderAdmin from './component/admin/Header';
-// import FooterAdmin from './component/admin/Footer';
-// import Dashboard from './pages/admin/dashboard';
-
-import AdminLayout from './layout/admin/admin-layout';
+// Admin pages
+import Dashboard from './pages/admin/dashboard';
+import ListCategory from './pages/admin/listCategory';
+import AddCategory from './pages/admin/addCategory';
+import ListUser from './pages/admin/listUser';
+import ViewUser from './pages/admin/viewUser';
 
 const App = () => {
   return (
-    <>
-      {/* <Header /> */}
-        {/* <PageHome/> */}
-        {/* <Product/> */}
-        {/* <ProductDetails/> */}
-        {/* <Blog/> */}
-        {/* <BlogDetails/> */}
-      {/* <Footer/> */}
+    <BrowserRouter>
+      <Routes>
+        {/* Redirect / về dashboard */}
+        <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
 
-      <AdminLayout/>
-    </>
+        {/* Admin routes */}
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/category/list" element={<ListCategory />} />
+        <Route path="/admin/category/add" element={<AddCategory />} />
+        <Route path="/admin/user/list" element={<ListUser />} />
+        <Route path="/admin/user/view/:id" element={<ViewUser />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

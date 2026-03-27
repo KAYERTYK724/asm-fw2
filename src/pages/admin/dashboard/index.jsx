@@ -1,38 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { Container, Row, Col, Table, Form, Button } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 import { FaChartLine, FaChartBar, FaChartArea, FaChartPie } from 'react-icons/fa';
-/* Import thư viện biểu đồ */
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Filler,
+    Legend,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
+import AdminLayout from '../../../layout/admin/admin-layout';
 import './style.css';
 
-// Đăng ký các thành phần của Chart.js
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Filler,
+    Legend
 );
 
 const Dashboard = () => {
-    // Dữ liệu cho Biểu đồ cột (Worldwide Sales)
     const barData = {
         labels: ['2016', '2017', '2018', '2019', '2020', '2021', '2022'],
         datasets: [
@@ -42,7 +40,6 @@ const Dashboard = () => {
         ],
     };
 
-    // Dữ liệu cho Biểu đồ đường/vùng (Sales & Revenue)
     const lineData = {
         labels: ['2016', '2017', '2018', '2019', '2020', '2021', '2022'],
         datasets: [
@@ -59,7 +56,7 @@ const Dashboard = () => {
                 data: [20, 35, 55, 45, 70, 65, 85],
                 borderColor: '#000',
                 backgroundColor: 'rgba(235, 22, 22, .3)',
-            }
+            },
         ],
     };
 
@@ -69,23 +66,23 @@ const Dashboard = () => {
         plugins: { legend: { display: true, labels: { color: '#6C7293' } } },
         scales: {
             y: { grid: { color: '#000' }, ticks: { color: '#6C7293' } },
-            x: { grid: { color: '#000' }, ticks: { color: '#6C7293' } }
-        }
+            x: { grid: { color: '#000' }, ticks: { color: '#6C7293' } },
+        },
     };
 
     const stats = [
-        { title: 'Doanh thu hôm nay', value: '$1234', icon: <FaChartLine size={40} /> },
-        { title: 'Tổng doanh thu', value: '$1234', icon: <FaChartBar size={40} /> },
-        { title: 'Lợi nhuận hôm nay', value: '$1234', icon: <FaChartArea size={40} /> },
-        { title: 'Tổng lợi nhuận', value: '$1234', icon: <FaChartPie size={40} /> }
+        { title: 'Doanh thu hôm nay', value: '$1,234', icon: <FaChartLine size={40} /> },
+        { title: 'Tổng doanh thu', value: '$12,345', icon: <FaChartBar size={40} /> },
+        { title: 'Lợi nhuận hôm nay', value: '$1,234', icon: <FaChartArea size={40} /> },
+        { title: 'Tổng lợi nhuận', value: '$8,765', icon: <FaChartPie size={40} /> },
     ];
 
     return (
-        <Container fluid className="pt-4 px-4">
+        <AdminLayout title="Dashboard">
             {/* Thẻ thống kê */}
-            <Row className="g-4">
+            <div className="row g-4">
                 {stats.map((item, idx) => (
-                    <Col key={idx} sm={6} xl={3}>
+                    <div key={idx} className="col-sm-6 col-xl-3">
                         <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4 box-card">
                             <div className="text-primary">{item.icon}</div>
                             <div className="ms-3 text-end text-white">
@@ -93,13 +90,13 @@ const Dashboard = () => {
                                 <h6 className="mb-0 fw-bold">{item.value}</h6>
                             </div>
                         </div>
-                    </Col>
+                    </div>
                 ))}
-            </Row>
+            </div>
 
-            {/* PHẦN BIỂU ĐỒ MỚI THÊM */}
-            <Row className="g-4 mt-2">
-                <Col sm={12} xl={6}>
+            {/* Biểu đồ */}
+            <div className="row g-4 mt-2">
+                <div className="col-sm-12 col-xl-6">
                     <div className="bg-secondary text-center rounded p-4 h-100">
                         <div className="d-flex align-items-center justify-content-between mb-4">
                             <h6 className="mb-0 text-white">Doanh số thế giới</h6>
@@ -109,8 +106,8 @@ const Dashboard = () => {
                             <Bar data={barData} options={options} />
                         </div>
                     </div>
-                </Col>
-                <Col sm={12} xl={6}>
+                </div>
+                <div className="col-sm-12 col-xl-6">
                     <div className="bg-secondary text-center rounded p-4 h-100">
                         <div className="d-flex align-items-center justify-content-between mb-4">
                             <h6 className="mb-0 text-white">Doanh số & Doanh thu</h6>
@@ -120,10 +117,10 @@ const Dashboard = () => {
                             <Line data={lineData} options={options} />
                         </div>
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
 
-            {/* Bảng doanh số */}
+            {/* Bảng doanh số gần đây */}
             <div className="bg-secondary text-center rounded p-4 mt-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <h6 className="mb-0 text-white">Doanh số gần đây</h6>
@@ -156,7 +153,7 @@ const Dashboard = () => {
                     </tbody>
                 </Table>
             </div>
-        </Container>
+        </AdminLayout>
     );
 };
 
