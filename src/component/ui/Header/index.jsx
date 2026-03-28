@@ -1,13 +1,10 @@
 import './style.css';
 import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { Nav } from 'react-bootstrap';
-import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { FaSearch, FaHeart, FaShoppingBag } from 'react-icons/fa';
+import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
+import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
+  const user = { name: "Nguyễn Văn A", isLoggedIn: true };
   return (
     <>
       {/* HEADER */}
@@ -17,10 +14,6 @@ const Header = () => {
           <Row>
             <Col md={6}>
               <p className='mb-0'>Miễn phí vận chuyển, hoàn trả trong 30 ngày</p>
-            </Col>
-            <Col md={6} className='text-end'>
-              <span className='me-3'>Đăng nhập</span>
-              <span className='me-3'>Câu hỏi</span>
             </Col>
           </Row>
         </Container>
@@ -49,12 +42,33 @@ const Header = () => {
             {/* ICONS */}
             <div className='nav-icons'>
               <FaSearch />
-              <FaHeart />
               <div className='cart'>
                 <FaShoppingBag />
                 <span className='count'>0</span>
               </div>
-              <span className='price'>$0.00</span>
+              <div className="user-dropdown">
+                <NavDropdown 
+                  title={
+                    <span className="user-info">
+                      <FaUser className="me-2" />
+                      <span className="user-name d-none d-md-inline">{user.name}</span>
+                    </span>
+                  } 
+                  id="user-nav-dropdown"
+                  align="end"
+                >
+                  <NavDropdown.Item as={Link} to="/profile">
+                    <FaUser className="me-2 text-muted" /> Trang cá nhân
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin">
+                    <FaCog className="me-2 text-muted" /> Quản trị viên
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item className="text-danger">
+                    <FaSignOutAlt className="me-2" /> Đăng xuất
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </div>
             </div>
           </Navbar.Collapse>
         </Container>

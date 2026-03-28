@@ -4,6 +4,8 @@ import { FaBars} from 'react-icons/fa';
 import './style.css';
 
 const HeaderAdmin = ({ toggleSidebar }) => {
+
+
     return (
         <Navbar bg="secondary" variant="dark" expand className="sticky-top px-4 py-0">
             <Button variant="link" className="sidebar-toggler flex-shrink-0 text-primary" onClick={toggleSidebar}>
