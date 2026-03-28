@@ -48,14 +48,10 @@ const App = () => {
           <Route path='blogAdmin' element={<BlogListAdmin/>}/>
           <Route path='addBlog' element={<AddBlog/>}/>
           <Route path='viewBlog' element={<BlogDetail/>}/>
-<<<<<<< HEAD
           <Route path="user" element={<UserListAdmin />} />
           <Route path="viewUser" element={<ViewUser />} />
-=======
-         
           <Route path='orders' element={<OrderList/>}/>
           <Route path='orders/:id' element={<OrderDetail/>}/>
->>>>>>> d55cbe890fad77a9a85fc6dd27497f2145788071
         </Route> 
       </Routes>
     </>
