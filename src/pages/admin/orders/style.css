@@ -1,0 +1,182 @@
+/* ===== PAGE ===== */
+.order-page {
+  padding: 20px;
+  color: #e2e8f0;
+}
+
+/* ===== TITLE ===== */
+.order-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}
+
+/* mã đơn trong title */
+.order-title span {
+  -webkit-text-fill-color: #ff4d4f;
+  text-shadow: 0 0 8px rgba(255, 77, 79, 0.7);
+}
+
+/* animation */
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ===== CARD ===== */
+.order-card {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 20px;
+  color: #cbd5e1;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* ===== INFO ===== */
+.order-info p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.order-info b {
+  color: #fff;
+}
+
+/* ===== TABLE ===== */
+.order-table {
+  width: 100%;
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+.order-table thead {
+  border-bottom: 1px solid #334155;
+}
+
+.order-table th {
+  color: #94a3b8;
+  padding: 10px 0;
+}
+
+.order-table td {
+  padding: 12px 0;
+  border-bottom: 1px solid #334155;
+}
+
+/* hover row */
+.order-table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* ===== STATUS ===== */
+.order-status {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.status-pending {
+  background: #facc15;
+  color: #000;
+}
+
+.status-shipping {
+  background: #38bdf8;
+  color: #000;
+}
+
+.status-done {
+  background: #22c55e;
+  color: #fff;
+}
+
+.status-cancel {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ===== TEXT ===== */
+.order-code {
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+.order-price {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+/* ===== ACTION ICON (NEW) ===== */
+.order-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* icon dạng button */
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+  font-size: 16px;
+  color: #fff;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* 👁 XEM */
+.action-icon.bi-eye {
+  background: #38bdf8;
+}
+
+/* 🗑 XÓA */
+.action-icon.bi-trash {
+  background: #ef4444;
+}
+
+/* hover */
+.action-icon:hover {
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* click */
+.action-icon:active {
+  transform: scale(0.9);
+}
+
+/* ===== TOTAL ===== */
+.order-total {
+  text-align: right;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff4d4f;
+}
+
+/* ===== BUTTON ===== */
+.btn-back {
+  background: #334155;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-back:hover {
+  background: #475569;
+}

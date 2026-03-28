@@ -71,3 +71,43 @@ body {
   font-weight: 300;
 }
 
+/* Custom Dropdown User */
+/* Đảm bảo nền Dropdown màu đen */
+.user-dropdown .dropdown-menu {
+    background-color: #111 !important; /* Dùng !important để ép màu nền */
+    border: 1px solid #333;
+    padding: 10px 0;
+}
+
+/* Ép màu trắng cho tất cả thẻ Link/Item bên trong Dropdown */
+.user-dropdown .dropdown-item, 
+.user-dropdown .dropdown-menu a {
+    color: #fff !important; 
+    display: flex !important;
+    align-items: center;
+    background: transparent !important; /* Xóa nền trắng mặc định */
+}
+
+/* Đảm bảo Icon cũng màu trắng */
+.user-dropdown .dropdown-item svg,
+.user-dropdown .dropdown-menu a svg {
+    color: #fff !important;
+}
+
+/* Hiệu ứng Hover: Nền đỏ chữ trắng */
+.user-dropdown .dropdown-item:hover,
+.user-dropdown .dropdown-menu a:hover {
+    background-color: #e53637 !important;
+    color: #fff !important;
+}
+
+/* Riêng nút Đăng xuất vẫn giữ màu đỏ nhưng icon phải đỏ theo */
+.user-dropdown .text-danger, 
+.user-dropdown .text-danger svg {
+    color: #ff4d4d !important; /* Màu đỏ sáng hơn để dễ nhìn trên nền đen */
+}
+
+/* Đường kẻ ngang */
+.user-dropdown .dropdown-divider {
+    border-top: 1px solid #333;
+}

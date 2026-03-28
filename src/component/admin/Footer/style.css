@@ -1,0 +1,11 @@
+/* Footer Admin */
+.footer-admin {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-top: 1px solid rgba(235, 22, 22, 0.3);
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.footer-admin a:hover {
+    color: #ff4444 !important;
+    transition: color 0.2s ease;
+}
