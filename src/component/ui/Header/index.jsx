@@ -4,7 +4,7 @@ import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
-  const user = { name: "Nguyễn Văn A", isLoggedIn: true };
+  const user = { name: 'Nguyễn Văn A', isLoggedIn: true };
   return (
     <>
       {/* HEADER */}
@@ -32,9 +32,15 @@ const Header = () => {
           <Navbar.Collapse>
             {/* MENU */}
             <Nav className='mx-auto menu'>
-              <Nav.Link as={Link} to='/' className='active'>TRANG CHỦ</Nav.Link>
-              <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
-              <Nav.Link  as={Link} to='/blog'>TIN TỨC</Nav.Link>
+              <Nav.Link as={Link} to='/' className='active'>
+                TRANG CHỦ
+              </Nav.Link>
+              <Nav.Link as={Link} to='/shop'>
+                CỬA HÀNG
+              </Nav.Link>
+              <Nav.Link as={Link} to='/blog'>
+                TIN TỨC
+              </Nav.Link>
               <Nav.Link>GIỚI THIỆU</Nav.Link>
               <Nav.Link>LIÊN HỆ</Nav.Link>
             </Nav>
@@ -46,26 +52,29 @@ const Header = () => {
                 <FaShoppingBag />
                 <span className='count'>0</span>
               </div>
-              <div className="user-dropdown">
-                <NavDropdown 
+              <div className='user-dropdown'>
+                <NavDropdown
                   title={
-                    <span className="user-info">
-                      <FaUser className="me-2" />
-                      <span className="user-name d-none d-md-inline">{user.name}</span>
+                    <span className='user-info'>
+                      <FaUser className='me-2' />
+                      <span className='user-name d-none d-md-inline'>{user.name}</span>
                     </span>
-                  } 
-                  id="user-nav-dropdown"
-                  align="end"
+                  }
+                  id='user-nav-dropdown'
+                  align='end'
                 >
-                  <NavDropdown.Item as={Link} to="/profile">
-                    <FaUser className="me-2 text-muted" /> Trang cá nhân
+                  <NavDropdown.Item as={Link} to='/profile' className='dropdown-item'>
+                    <FaUser className='me-2' /> Trang cá nhân
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin">
-                    <FaCog className="me-2 text-muted" /> Quản trị viên
+
+                  <NavDropdown.Item as={Link} to='/admin' className='dropdown-item'>
+                    <FaCog className='me-2' /> Quản trị viên
                   </NavDropdown.Item>
+
                   <NavDropdown.Divider />
-                  <NavDropdown.Item className="text-danger">
-                    <FaSignOutAlt className="me-2" /> Đăng xuất
+
+                  <NavDropdown.Item className='dropdown-item'>
+                    <FaSignOutAlt className='me-2' /> Đăng xuất
                   </NavDropdown.Item>
                 </NavDropdown>
               </div>
