@@ -34,7 +34,9 @@ const SidebarAdmin = () => {
                     <Nav.Link as={Link} to='/admin/category'><FaCube className="me-2" />DANH MỤC</Nav.Link>
                     <Nav.Link href="#"><FaCube className="me-2" />SẢN PHẨM</Nav.Link>
                     <Nav.Link href="#"><FaCube className="me-2" />BÌNH LUẬN</Nav.Link>
-                    <Nav.Link href="#"><FaCube className="me-2" />ĐƠN HÀNG</Nav.Link>
+                    <Nav.Link as={Link} to='/admin/orders'>
+                        <FaCube className="me-2" />ĐƠN HÀNG
+                    </Nav.Link>
                     <Nav.Link as={Link} to='/admin/blogAdmin'><FaCube className="me-2" />BÀI VIẾT</Nav.Link>
                     <Nav.Link as={Link} to='/admin/user'><FaCube className="me-2" />NGƯỜI DÙNG</Nav.Link>
                 </Nav>

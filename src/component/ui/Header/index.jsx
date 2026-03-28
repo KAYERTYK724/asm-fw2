@@ -4,7 +4,11 @@ import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
+<<<<<<< HEAD
   const user = { name: 'Nguyễn Văn A', isLoggedIn: true };
+=======
+  const user = { name: "Nguyễn Văn A", isLoggedIn: true };
+>>>>>>> d55cbe890fad77a9a85fc6dd27497f2145788071
   return (
     <>
       {/* HEADER */}
@@ -32,6 +36,7 @@ const Header = () => {
           <Navbar.Collapse>
             {/* MENU */}
             <Nav className='mx-auto menu'>
+<<<<<<< HEAD
               <Nav.Link as={Link} to='/' className='active'>
                 TRANG CHỦ
               </Nav.Link>
@@ -41,6 +46,11 @@ const Header = () => {
               <Nav.Link as={Link} to='/blog'>
                 TIN TỨC
               </Nav.Link>
+=======
+              <Nav.Link as={Link} to='/' className='active'>TRANG CHỦ</Nav.Link>
+              <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
+              <Nav.Link as={Link} to='/blog'>TIN TỨC</Nav.Link>
+>>>>>>> d55cbe890fad77a9a85fc6dd27497f2145788071
               <Nav.Link>GIỚI THIỆU</Nav.Link>
               <Nav.Link>LIÊN HỆ</Nav.Link>
             </Nav>
@@ -48,6 +58,7 @@ const Header = () => {
             {/* ICONS */}
             <div className='nav-icons'>
               <FaSearch />
+<<<<<<< HEAD
               <div className='cart'>
                 <FaShoppingBag />
                 <span className='count'>0</span>
@@ -78,6 +89,39 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               </div>
+=======
+              <div className="cart">
+                <Link to="/cart">
+                  <FaShoppingBag />
+                  <span className="count">0</span>
+                </Link>
+              </div>
+              <div className="user-dropdown">
+                <NavDropdown
+                  title={
+                    <Link to="/login" className="user-info">
+                      <FaUser className="me-2" />
+                      <span className="user-name d-none d-md-inline">
+                        {user?.name || "Login"}
+                      </span>
+                    </Link>
+                  }
+                  id="user-nav-dropdown"
+                  align="end"
+                >
+                  <NavDropdown.Item as={Link} to="/profile">
+                    <FaUser className="me-2 text-muted" /> Trang cá nhân
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin">
+                    <FaCog className="me-2 text-muted" /> Quản trị viên
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item className="text-danger">
+                    <FaSignOutAlt className="me-2" /> Đăng xuất
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </div>
+>>>>>>> d55cbe890fad77a9a85fc6dd27497f2145788071
             </div>
           </Navbar.Collapse>
         </Container>
