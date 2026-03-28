@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageHome from './pages/client/home';
@@ -12,6 +11,10 @@ import AddBlog from './pages/admin/blog/add';
 import BlogDetail from './pages/admin/blog/view';
 import ClientLayout from './layout/client/client-layout';
 import AdminLayout from './layout/admin/admin-layout';
+import CategoryListAdmin from './pages/admin/category';
+import AddCategory from './pages/admin/category/add';
+import UserListAdmin from './pages/admin/user';
+import ViewUser from './pages/admin/user/viewUser';
 
 const App = () => {
   return (
@@ -28,9 +31,13 @@ const App = () => {
         {/* Admin */}
         <Route path='/admin' element={<AdminLayout/>}>
           <Route path='dashboard' element={<Dashboard/>}/>
+          <Route path="category" element={<CategoryListAdmin />} />
+          <Route path="addCategory" element={<AddCategory />} />
           <Route path='blogAdmin' element={<BlogListAdmin/>}/>
           <Route path='addBlog' element={<AddBlog/>}/>
           <Route path='viewBlog' element={<BlogDetail/>}/>
+          <Route path="user" element={<UserListAdmin />} />
+          <Route path="viewUser" element={<ViewUser />} />
         </Route> 
       </Routes>
     </>
