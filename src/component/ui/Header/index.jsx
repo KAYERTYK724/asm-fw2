@@ -35,14 +35,10 @@ const Header = () => {
             {/* MENU */}
             <Nav className='mx-auto menu'>
 
-              <Nav.Link as={Link} to='/' className='active'>TRANG CHỦ</Nav.Link>
+              <Nav.Link as={Link} to='/'>TRANG CHỦ</Nav.Link>
               <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
               <Nav.Link as={Link} to='/blog'>TIN TỨC</Nav.Link>
-<<<<<<< HEAD
-              <Nav.Link>GIỚI THIỆU</Nav.Link>
-=======
               <Nav.Link as={Link} to='/about'>GIỚI THIỆU</Nav.Link>
->>>>>>> cb4e2682b35a37b6cca9a5678a7907d99c365f48
               <Nav.Link as={Link} to='/contact'>LIÊN HỆ</Nav.Link>
             </Nav>
 
