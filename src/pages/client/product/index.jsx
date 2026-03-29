@@ -107,7 +107,6 @@ const Product = () => {
                     placeholder='Tìm kiếm...'
                     className='search-input'
                   />
-                  <i className='bi bi-search search-icon'></i>{' '}
                   {/* Sử dụng bootstrap icons hoặc emoji */}
                   <span className='search-emoji'><FaSearch/></span>
                 </div>
