@@ -77,7 +77,7 @@ const BlogListAdmin = () => {
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <h4 className="mb-0 text-white fw-bold">DANH SÁCH BÀI VIẾT</h4>
                     <Button as={Link} to='/admin/addBlog' variant="success" className="rounded-pill">
-                        <FaPlusSquare className="me-2" />
+                        <FaPlusSquare/>
                     </Button>
                 </div>
 

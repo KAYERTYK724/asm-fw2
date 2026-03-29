@@ -22,6 +22,9 @@ import CategoryListAdmin from './pages/admin/category';
 import AddCategory from './pages/admin/category/add';
 import UserListAdmin from './pages/admin/user';
 import ViewUser from './pages/admin/user/viewUser';
+import ProductListAdmin from './pages/admin/product';
+import AddProduct from './pages/admin/product/add';
+import ProductDetail from './pages/admin/product/view';
 
 const App = () => {
   return (
@@ -45,6 +48,9 @@ const App = () => {
           <Route path='dashboard' element={<Dashboard/>}/>
           <Route path="category" element={<CategoryListAdmin />} />
           <Route path="addCategory" element={<AddCategory />} />
+          <Route path='productAdmin' element={<ProductListAdmin/>}/>
+          <Route path='addProduct' element={<AddProduct/>}/>
+          <Route path='viewProduct' element={<ProductDetail/>}/>
           <Route path='blogAdmin' element={<BlogListAdmin/>}/>
           <Route path='addBlog' element={<AddBlog/>}/>
           <Route path='viewBlog' element={<BlogDetail/>}/>
