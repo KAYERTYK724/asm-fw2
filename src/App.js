@@ -9,6 +9,7 @@ import BlogDetails from './pages/client/detailBlog';
 import Contact from './pages/client/contact/Contact';
 import Checkout from './pages/client/checkout/Checkout';
 import Cart from './pages/client/cart/Cart';
+import About from './pages/client/about/about';
 import Login  from './pages/client/auth/Login';
 import Register from './pages/client/auth/Register';
 import Dashboard from './pages/admin/dashboard';
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} /> 
+          <Route path="/about" element={<About />} />
         </Route>
         {/* Admin */}
         <Route path='/admin' element={<AdminLayout/>}>

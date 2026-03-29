@@ -35,8 +35,8 @@ const Header = () => {
               <Nav.Link as={Link} to='/' className='active'>TRANG CHỦ</Nav.Link>
               <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
               <Nav.Link as={Link} to='/blog'>TIN TỨC</Nav.Link>
-              <Nav.Link>GIỚI THIỆU</Nav.Link>
-              <Nav.Link>LIÊN HỆ</Nav.Link>
+              <Nav.Link as={Link} to='/about'>GIỚI THIỆU</Nav.Link>
+              <Nav.Link as={Link} to='/contact'>LIÊN HỆ</Nav.Link>
             </Nav>
 
             {/* ICONS */}
