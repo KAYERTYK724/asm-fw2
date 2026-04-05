@@ -26,7 +26,7 @@ import ViewUser from './pages/admin/user/viewUser';
 import ProductListAdmin from './pages/admin/product';
 import AddProduct from './pages/admin/product/add';
 import ProductDetail from './pages/admin/product/view';
-
+import EditCategory from './pages/admin/category/edit';
 const App = () => {
   return (
     <>
@@ -50,6 +50,7 @@ const App = () => {
           <Route path='dashboard' element={<Dashboard />} />
           <Route path="category" element={<CategoryListAdmin />} />
           <Route path="addCategory" element={<AddCategory />} />
+          <Route path="editCategory/:id" element={<EditCategory />} />
           <Route path='productAdmin' element={<ProductListAdmin />} />
           <Route path='addProduct' element={<AddProduct />} />
           <Route path='viewProduct' element={<ProductDetail />} />
