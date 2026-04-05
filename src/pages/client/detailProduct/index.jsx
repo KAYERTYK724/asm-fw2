@@ -5,7 +5,6 @@ import './style.css';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState('XL');
 
   const relatedProducts = [
     {
@@ -58,64 +57,12 @@ const ProductDetails = () => {
         <Container className='mt-5'>
           <Tab.Container defaultActiveKey='thumb-1'>
             <Row className='justify-content-center'>
-              <Col lg={1} md={2} className='p-0'>
-                <Nav variant='tabs' className='product__thumb__nav flex-column border-0'>
-                  <Nav.Item>
-                    <Nav.Link eventKey='thumb-1' className='p-0 mb-3 border-0'>
-                      <div className='thumb-item'>
-                        <img
-                          src='https://i.pinimg.com/1200x/a6/85/93/a68593220d20e4a56bc50c88688bd1d8.jpg'
-                          alt='thumb 1'
-                          className='img-fluid'
-                        />
-                      </div>
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey='thumb-2' className='p-0 mb-3 border-0'>
-                      <div className='thumb-item'>
-                        <img
-                          src='https://i.pinimg.com/1200x/a4/38/c5/a438c5eacc99cb7f9828e0f68ec6ebf3.jpg'
-                          alt='thumb 2'
-                          className='img-fluid'
-                        />
-                      </div>
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey='thumb-3' className='p-0 mb-3 border-0'>
-                      <div className='thumb-item'>
-                        <img
-                          src='https://i.pinimg.com/1200x/a6/85/93/a68593220d20e4a56bc50c88688bd1d8.jpg'
-                          alt='thumb 3'
-                          className='img-fluid'
-                        />
-                      </div>
-                    </Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </Col>
-
               <Col lg={5} md={8}>
                 <Tab.Content className='product__big__img border-0'>
                   <Tab.Pane eventKey='thumb-1'>
                     <img
                       src='https://i.pinimg.com/1200x/a6/85/93/a68593220d20e4a56bc50c88688bd1d8.jpg'
                       alt='Sản phẩm lớn 1'
-                      className='img-fluid w-100'
-                    />
-                  </Tab.Pane>
-                  <Tab.Pane eventKey='thumb-2'>
-                    <img
-                      src='https://i.pinimg.com/1200x/a4/38/c5/a438c5eacc99cb7f9828e0f68ec6ebf3.jpg'
-                      alt='Sản phẩm lớn 2'
-                      className='img-fluid w-100'
-                    />
-                  </Tab.Pane>
-                  <Tab.Pane eventKey='thumb-3'>
-                    <img
-                      src='https://i.pinimg.com/1200x/a6/85/93/a68593220d20e4a56bc50c88688bd1d8.jpg'
-                      alt='Sản phẩm lớn 3'
                       className='img-fluid w-100'
                     />
                   </Tab.Pane>
@@ -126,50 +73,19 @@ const ProductDetails = () => {
         </Container>
 
         {/* Nội dung chi tiết */}
-        <Row className='justify-content-center text-center'>
+        <Row className='justify-content-center text-center m-5'>
           <Col lg={8}>
             <div className='product__details__text'>
               <h4 className='fw-bold mb-2'>Áo khoác Anorak nhiệt có mũ</h4>
 
-              <h3 className='price-detail mb-4'>
+              <h3 className='price-detail mb-2'>
                 $270.00 <span className='old-price'>$370.00</span>
               </h3>
 
               <div className='product__options mb-4'>
-                {/* Chọn kích thước */}
-                <div className='option-item d-flex justify-content-center align-items-center mb-4'>
-                  <span className='option-label'>Kích thước:</span>
-                  <div className='size-selector d-flex gap-2'>
-                    {['XXL', 'XL', 'L', 'S'].map((size) => (
-                      <div
-                        key={size}
-                        className={`size-item ${selectedSize === size ? 'active' : ''}`}
-                        onClick={() => setSelectedSize(size)}
-                      >
-                        {size}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Chọn màu sắc */}
-                <div className='option-item d-flex justify-content-center align-items-center mb-4'>
-                  <span className='option-label'>Màu sắc:</span>
-                  <div className='color-selector d-flex gap-2'>
-                    <div className='color-dot bg-black active'></div>
-                    <div className='color-dot bg-navy'></div>
-                    <div className='color-dot bg-orange'></div>
-                    <div className='color-dot bg-red'></div>
-                    <div className='color-dot bg-white border'></div>
-                  </div>
-                </div>
-
-                <div className='product-meta mt-4 text-muted small'>
-                  <div className='mb-1'>
-                    Mã hàng (SKU): <strong>3812912</strong>
-                  </div>
-                  <div>
-                    Danh mục: <strong>Quần áo</strong>
+                <div className='product-meta text-muted small'>
+                  <div className='fw-bolder fs-6'>
+                    DANH MỤC: <span>3812912</span>
                   </div>
                 </div>
 
