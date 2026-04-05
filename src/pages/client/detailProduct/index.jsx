@@ -161,30 +161,9 @@ const ProductDetails = () => {
               </Nav>
               <Tab.Content className='product__details__tab__content'>
                 <Tab.Pane eventKey='desc'>
-                  <div className='product__details__tab__desc'>
-                    <p className='main-intro'>
-                      Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud
-                      felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut
-                      risus. Sedcus faucibus an ullamcorper mattis drostique des commodo
-                      pharetras loremos.
-                    </p>
-                    <h6>Thông tin sản phẩm</h6>
-                    <p>
-                      Một chiếc Pocket PC là một máy tính cầm tay, có nhiều tính năng tương tự
-                      như một chiếc PC hiện đại. Những thiết bị nhỏ gọn tiện dụng này cho phép
-                      cá nhân truy xuất và lưu trữ thư điện tử, tạo tệp danh bạ, điều phối cuộc
-                      hẹn, lướt internet, trao đổi tin nhắn văn bản và nhiều hơn nữa. Mọi sản
-                      phẩm được dán nhãn là Pocket PC phải đi kèm với phần mềm cụ thể để vận
-                      hành thiết bị và phải có màn hình cảm ứng cùng bàn di chuột.
-                    </p>
-                    <h6>Chất liệu sử dụng</h6>
-                    <p>
-                      Polyester được coi là có chất lượng thấp hơn do đặc tính không tự nhiên
-                      của nó. Được làm từ vật liệu tổng hợp, không tự nhiên như len. Bộ vest
-                      polyester dễ bị nhăn và được biết đến là không thoáng khí. Polyester có xu
-                      hướng sáng bóng hơn so với len và cotton, điều này có thể làm cho bộ vest
-                      trông rẻ tiền. Tuy nhiên, kết cấu của nhung rất sang trọng và thoáng khí.
-                    </p>
+                  <div className='product__details__tab__desc'
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  >
                   </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey='review'>
