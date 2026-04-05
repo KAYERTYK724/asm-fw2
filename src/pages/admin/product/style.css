@@ -107,3 +107,14 @@ label {
     font-size: 15px;
     margin-bottom: 8px;
 }
+
+/* Đảm bảo khung soạn thảo luôn có độ cao và hiển thị rõ ràng */
+.ck-editor-wrapper {
+    min-height: 200px !important;
+    color: black !important; /* Chữ đen trên nền trắng của CKEditor */
+    background-color: white !important;
+}
+
+.ck-editor {
+    width: 100% !important;
+}

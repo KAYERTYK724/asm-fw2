@@ -1,7 +1,7 @@
 import './style.css';
-import {React ,useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Accordion, Pagination,} from 'react-bootstrap';
+import { Container, Row, Col, Form, Accordion, Pagination } from 'react-bootstrap';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
 
@@ -9,27 +9,48 @@ const Product = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const allKeys = ['0', '1', '2', '3', '4', '5'];
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const resProduct = await requestAPI({
-        method: "GET",
-        url: "/products/list"
+    const fetchCategories = async () => {
+      const resCategory = await requestAPI({
+        method: 'GET',
+        url: '/categories/list',
       });
 
-      const resCategory = await requestAPI({
-        method: "GET",
-        url: "/categories/list"
+      if (resCategory) setCategories(resCategory.data.data);
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let url = '/products/list';
+
+      // nếu có chọn danh mục → thêm query
+      if (selectedCategory) {
+        url = `/products/list?categoryId=${selectedCategory}`;
+      }
+
+      const resProduct = await requestAPI({
+        method: 'GET',
+        url,
       });
 
       if (resProduct) setProducts(resProduct.data.data);
-      if (resCategory) setCategories(resCategory.data.data);
-
-      console.log("categories:", resCategory.data);
     };
 
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [selectedCategory]);
+
+  const formatVND = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    }).format(price);
+  };
+
   return (
     <div>
       {/* Breadcrumb */}
@@ -54,7 +75,9 @@ const Product = () => {
                     className='search-input'
                   />
                   {/* Sử dụng bootstrap icons hoặc emoji */}
-                  <span className='search-emoji'><FaSearch/></span>
+                  <span className='search-emoji'>
+                    <FaSearch />
+                  </span>
                 </div>
               </div>
 
@@ -65,8 +88,18 @@ const Product = () => {
                   <Accordion.Header>DANH MỤC</Accordion.Header>
                   <Accordion.Body>
                     <ul className='filter-list'>
+                      <li onClick={() => setSelectedCategory(null)}>Tất cả</li>
+
                       {categories.map((c) => (
-                        <li key={c.id}>
+                        <li
+                          key={c.id}
+                          onClick={() => setSelectedCategory(c.id)}
+                          style={{
+                            cursor: 'pointer',
+                            fontWeight: selectedCategory === c.id ? 'bold' : 'normal',
+                            color: selectedCategory === c.id ? 'red' : '',
+                          }}
+                        >
                           {c.name}
                         </li>
                       ))}
@@ -163,24 +196,48 @@ const Product = () => {
             <Row>
               {products.map((item) => (
                 <Col lg={4} md={6} key={item.id} className='mb-4'>
-                  <Link to='/detailShop' className='text-decoration-none text-black'>
+                  <Link to={`/detailShop/${item.id}`} className='text-decoration-none text-black'>
                     <div className='product-card text-center position-relative'>
                       <div className='product-img mb-3 overflow-hidden position-relative'>
-                        <img src={item.image} alt={item.name} className='img-fluid w-100' 
-                        style={{width: "300px", height: "300px", objectFit: 'cover'}} 
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className='img-fluid w-100'
+                          style={{ width: '300px', height: '300px', objectFit: 'cover' }}
                         />
                         <div className='product-hover-overlay'>
                           <FaShoppingCart />
                         </div>
                       </div>
                       <h6 className='fw-bold'>{item.name}</h6>
-                      <p className='text-danger fw-bold'>{item.price}</p>
+                      <div>
+                        {item.sale_price && item.sale_price > 0 ? (
+                          <>
+                            {/* Giá giảm */}
+                            <p className='text-danger fw-bold mb-1'>
+                              {formatVND(item.sale_price)}
+                            </p>
+
+                            {/* Giá gốc */}
+                            <p
+                              className='text-muted'
+                              style={{ textDecoration: 'line-through', fontSize: '14px' }}
+                            >
+                              {formatVND(item.price)}
+                            </p>
+                          </>
+                        ) : (
+                          <p className='text-danger fw-bold'>
+                            {formatVND(item.price)}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 </Col>
               ))}
             </Row>
-  
+
             {/* PAGINATION */}
             <Pagination className='justify-content-center mt-4 custom-pagination'>
               <Pagination.Item active>1</Pagination.Item>

@@ -4,9 +4,26 @@ const CategoryModel = require('../models/categoryModel');
 class ProductController {
     static async get(req, res) {
         try {
+            const { categoryId } = req.query; // 👈 lấy từ query
+
+            let condition = {};
+
+            // nếu có categoryId thì lọc
+            if (categoryId) {
+                condition.category_id = categoryId;
+            }
+
             const products = await ProductModel.findAll({
-                include: [{ model: CategoryModel, as: 'category', attributes: ['name'] }]
+                where: condition, // 👈 thêm dòng này
+                include: [
+                    {
+                        model: CategoryModel,
+                        as: 'category',
+                        attributes: ['name']
+                    }
+                ]
             });
+
             res.status(200).json({
                 status: 200,
                 message: "Lấy danh sách sản phẩm thành công",
