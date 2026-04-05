@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th4 04, 2026 lúc 04:15 PM
+-- Thời gian đã tạo: Th4 05, 2026 lúc 09:31 AM
 -- Phiên bản máy phục vụ: 8.0.44
 -- Phiên bản PHP: 8.2.29
 
@@ -30,10 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `blogs` (
   `id` int NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `content` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `title`, `image`, `content`, `createdAt`, `updatedAt`) VALUES
+(1, 'Bí quyết chọn bộ Suit hoàn hảo cho quý ông công sở', 'https://i.pinimg.com/1200x/00/e3/8c/00e38ce5983b4bd58b872f51220bcd8c.jpg', 'Một bộ suit đẹp không chỉ nằm ở thương hiệu mà quan trọng nhất là sự vừa vặn (fit). \n- Vai áo: Phải nằm vừa vặn với xương vai tự nhiên.\n- Độ dài tay áo: Nên để hở khoảng 1-2cm ống tay sơ mi bên trong.\n- Quần: Độ dài vừa chạm mu bàn chân để tránh bị gãy ống.', '2026-04-05 07:32:52', '2026-04-05 07:33:48'),
+(2, '5 Đôi Sneakers trắng không bao giờ lỗi mốt', 'https://i.pinimg.com/736x/97/a7/10/97a7109c6168fa995a7dbd38e5814c71.jpg', 'Sneakers trắng là \"vũ khí\" tối thượng trong tủ đồ nam giới vì khả năng phối hợp cực linh hoạt. \nTừ phong cách tối giản với Common Projects đến sự năng động của Adidas Stan Smith hay Nike Air Force 1. Bài viết này sẽ phân tích ưu nhược điểm của từng dòng giày dựa trên chất liệu da và độ bền đế.', '2026-04-05 07:32:52', '2026-04-05 07:34:19'),
+(3, 'Cách phối đồ Layering cho mùa thu đông miền Bắc', 'https://i.pinimg.com/1200x/7b/2a/2c/7b2a2c0e9e9061e189714c7e4e88e94e.jpg', 'Phối đồ nhiều lớp (Layering) không chỉ giúp giữ ấm mà còn tạo chiều sâu cho trang phục. \nQuy tắc cơ bản: Mỏng bên trong, dày bên ngoài. Bắt đầu với một chiếc áo thun cotton, thêm một lớp sơ mi flannel và kết thúc bằng một chiếc áo khoác Denim hoặc măng tô dáng dài.', '2026-04-05 07:32:52', '2026-04-05 07:35:08');
 
 -- --------------------------------------------------------
 
@@ -75,6 +85,16 @@ CREATE TABLE `comments` (
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `comments`
+--
+
+INSERT INTO `comments` (`id`, `content`, `product_id`, `user_id`, `status`, `createdAt`, `updatedAt`) VALUES
+(1, 'Áo sơ mi vải rất mát, ít nhăn sau khi giặt. Form slim-fit mặc cực tôn dáng, rất đáng tiền!', 1, 3, 1, '2026-04-05 08:59:13', '2026-04-05 08:59:13'),
+(2, 'Quần Jean đẹp nhưng size hơi chật một chút so với mô tả, mọi người nên cân nhắc tăng 1 size khi mua.', 3, 3, 1, '2026-04-05 08:59:13', '2026-04-05 08:59:13'),
+(3, 'Giày đi êm chân, da thật sờ rất sướng tay. Giao hàng nhanh và đóng gói cẩn thận.', 8, 2, 1, '2026-04-05 08:59:13', '2026-04-05 08:59:13'),
+(4, 'Sản phẩm có vết ố nhỏ ở cổ áo, shop hỗ trợ đổi trả giúp mình nhé.', 5, 3, 0, '2026-04-05 08:59:13', '2026-04-05 08:59:13');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +116,15 @@ CREATE TABLE `orders` (
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `name`, `phone`, `email`, `address`, `payments`, `payment_status`, `order_status`, `total_price`, `createdAt`, `updatedAt`) VALUES
+(1, 3, 'Lê Anh Tuấn', '0987778889', 'tuan.nguyen@gmail.com', 'Số 15, Ngõ 20, Đường Xuân Thủy, Cầu Giấy, Hà Nội', 'cod', 0, 0, 1250000.00, '2026-04-05 08:50:12', '2026-04-05 08:50:12'),
+(2, 3, 'Lê Anh Tuấn', '0987778889', 'tuan.nguyen@gmail.com', 'Số 15, Ngõ 20, Đường Xuân Thủy, Cầu Giấy, Hà Nội', 'vnpay', 1, 2, 890000.00, '2026-04-05 08:50:12', '2026-04-05 08:50:12'),
+(3, 2, 'Nguyễn Minh Hoàng', '0914445556', 'hoang.editor@mensfashion.com', 'Tòa nhà Landmark 81, Quận Bình Thạnh, TP.HCM', 'momo', 1, 3, 2150000.00, '2026-04-05 08:50:12', '2026-04-05 08:50:12');
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +141,20 @@ CREATE TABLE `order_details` (
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`, `createdAt`, `updatedAt`) VALUES
+(1, 1, 1, 1, 390000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(2, 1, 3, 1, 550000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(3, 1, 5, 1, 310000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(4, 2, 7, 1, 790000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(5, 2, 9, 1, 100000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(6, 3, 8, 1, 1200000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(7, 3, 4, 1, 750000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49'),
+(8, 3, 6, 1, 200000.00, '2026-04-05 08:56:49', '2026-04-05 08:56:49');
+
 -- --------------------------------------------------------
 
 --
@@ -121,8 +164,8 @@ CREATE TABLE `order_details` (
 CREATE TABLE `products` (
   `id` int NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `price` decimal(15,2) NOT NULL DEFAULT '0.00',
-  `sale_price` decimal(15,2) DEFAULT '0.00',
+  `price` decimal(15,0) NOT NULL DEFAULT '0',
+  `sale_price` decimal(15,0) DEFAULT '0',
   `image` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_520_ci,
   `category_id` int NOT NULL,
@@ -136,16 +179,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `sale_price`, `image`, `description`, `category_id`, `status`, `createdAt`, `updatedAt`) VALUES
-(1, 'Áo Sơ Mi Trắng Oxford Slim-fit', 450000.00, 390000.00, 'so-mi-oxford.jpg', 'Chất liệu cotton Oxford bền bỉ, thấm hút mồ hôi tốt, phù hợp công sở.', 1, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(2, 'Áo Sơ Mi Flanel Kẻ Caro', 550000.00, NULL, 'so-mi-flanel.jpg', 'Phong cách streetstyle năng động, vải dày dặn giữ ấm tốt.', 1, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(3, 'Quần Jean Slim-fit Xanh Đậm', 620000.00, 550000.00, 'jean-slimfit-blue.jpg', 'Chất denim co giãn nhẹ, giữ form tốt sau nhiều lần giặt.', 2, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(4, 'Quần Jean Rách Gối Cá Tính', 750000.00, NULL, 'jean-distressed.jpg', 'Thiết kế rách gối nhẹ, phù hợp cho các buổi đi chơi, dã ngoại.', 2, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(5, 'Áo Thun Cotton Basic Đen', 250000.00, 199000.00, 'tshirt-basic-black.jpg', '100% Cotton co giãn 4 chiều, mềm mịn thoáng mát.', 3, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(6, 'Áo Polo Phối Cổ Lịch Sự', 380000.00, 320000.00, 'polo-shirt.jpg', 'Chất vải cá sấu cao cấp, form đứng, tôn dáng người mặc.', 3, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(7, 'Giày Sneaker Trắng Minimalist', 890000.00, 790000.00, 'sneaker-white.jpg', 'Kiểu dáng tối giản, dễ dàng phối với mọi loại trang phục.', 4, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(8, 'Giày Loafer Da Bò Thật', 120000.00, NULL, 'leather-loafer.jpg', 'Chế tác từ da bò thật nguyên tấm, sang trọng và êm chân.', 4, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(9, 'Thắt Lưng Da Khóa Kim Loại', 350000.00, NULL, 'belt-leather.jpg', 'Mặt khóa chống gỉ, dây da thật bền bỉ theo thời gian.', 5, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41'),
-(10, 'Ví Da Cầm Tay Mini', 280000.00, 250000.00, 'wallet-mini.jpg', 'Thiết kế nhỏ gọn, nhiều ngăn tiện lợi cho thẻ và tiền mặt.', 5, 1, '2026-04-04 15:32:41', '2026-04-04 15:32:41');
+(1, 'Áo Sơ Mi Trắng Oxford Slim-fit', 450000, 390000, 'https://i.pinimg.com/1200x/5c/a8/36/5ca8364d8f41417cc24bd597c4375c54.jpg', 'Chất liệu cotton Oxford bền bỉ, thấm hút mồ hôi tốt, phù hợp công sở.', 1, 1, '2026-04-04 15:32:41', '2026-04-04 16:42:48'),
+(2, 'Áo Sơ Mi Flanel Kẻ Caro', 550000, NULL, 'https://i.pinimg.com/736x/6b/66/4f/6b664f190d71f818e58b6b179fd02703.jpg', 'Phong cách streetstyle năng động, vải dày dặn giữ ấm tốt.', 1, 1, '2026-04-04 15:32:41', '2026-04-04 16:44:16'),
+(3, 'Quần Jean Slim-fit Xanh Đậm', 620000, 550000, 'https://i.pinimg.com/1200x/89/1c/4c/891c4ce5fcce9689cf3c27b2d5578393.jpg', 'Chất denim co giãn nhẹ, giữ form tốt sau nhiều lần giặt.', 2, 1, '2026-04-04 15:32:41', '2026-04-04 16:46:57'),
+(4, 'Quần Jean Rách Gối Cá Tính', 750000, NULL, 'https://i.pinimg.com/736x/c0/6f/6f/c06f6f51980f808ef30ed22bd645f12f.jpg', 'Thiết kế rách gối nhẹ, phù hợp cho các buổi đi chơi, dã ngoại.', 2, 1, '2026-04-04 15:32:41', '2026-04-04 16:48:44'),
+(5, 'Áo Thun Cotton Basic Đen', 250000, 199000, 'https://i.pinimg.com/1200x/45/88/41/458841be664d0963420f26ea94a70510.jpg', '100% Cotton co giãn 4 chiều, mềm mịn thoáng mát.', 3, 1, '2026-04-04 15:32:41', '2026-04-04 16:49:23'),
+(6, 'Áo Polo Phối Cổ Lịch Sự', 380000, 320000, 'https://i.pinimg.com/736x/82/73/05/82730580641997ce039ffd60eeae1b02.jpg', 'Chất vải cá sấu cao cấp, form đứng, tôn dáng người mặc.', 3, 1, '2026-04-04 15:32:41', '2026-04-04 16:50:19'),
+(7, 'Giày Sneaker Trắng Minimalist', 890000, 790000, 'https://i.pinimg.com/1200x/77/6f/5d/776f5db81803121042f5f0f0e1c9fa95.jpg', 'Kiểu dáng tối giản, dễ dàng phối với mọi loại trang phục.', 4, 1, '2026-04-04 15:32:41', '2026-04-04 16:50:41'),
+(8, 'Giày Loafer Da Bò Thật', 120000, NULL, 'https://i.pinimg.com/1200x/8a/11/5f/8a115f38e4d401002b45c844cbf184a7.jpg', 'Chế tác từ da bò thật nguyên tấm, sang trọng và êm chân.', 4, 1, '2026-04-04 15:32:41', '2026-04-04 16:50:56'),
+(9, 'Thắt Lưng Da Khóa Kim Loại', 350000, NULL, 'https://i.pinimg.com/736x/ee/3c/c0/ee3cc032330dbeb9a42606910774c6e9.jpg', 'Mặt khóa chống gỉ, dây da thật bền bỉ theo thời gian.', 5, 1, '2026-04-04 15:32:41', '2026-04-04 16:51:23'),
+(10, 'Ví Da Cầm Tay Mini', 280000, 250000, 'https://i.pinimg.com/736x/9b/43/67/9b43677cf78287f2185b2a48bd5a5e30.jpg', 'Thiết kế nhỏ gọn, nhiều ngăn tiện lợi cho thẻ và tiền mặt.', 5, 1, '2026-04-04 15:32:41', '2026-04-04 16:51:42');
 
 -- --------------------------------------------------------
 
@@ -160,11 +203,20 @@ CREATE TABLE `users` (
   `email` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `fullname` varchar(100) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `phone` varchar(20) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `role` varchar(20) COLLATE utf8mb4_unicode_520_ci DEFAULT 'customer' COMMENT 'admin, editor, customer',
+  `role` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT 'customer' COMMENT 'admin,customer',
   `status` tinyint(1) DEFAULT '1' COMMENT '1: Active, 0: Banned',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `phone`, `role`, `status`, `createdAt`, `updatedAt`) VALUES
+(1, 'admin_fashion', '$2b$10$eImiTXuWV5j7pRF.y6.8SuE2vV6F5/B5I.D/mI3yI.L/L.L.L.L', 'admin@mensfashion.com', 'Quản Trị Viên Thời Trang', '0901112223', 'admin', 1, '2026-04-05 08:47:47', '2026-04-05 08:47:47'),
+(2, 'editor_hoang', '$2b$10$eImiTXuWV5j7pRF.y6.8SuE2vV6F5/B5I.D/mI3yI.L/L.L.L.L', 'hoang.editor@mensfashion.com', 'Nguyễn Minh Hoàng', '0914445556', 'customer', 1, '2026-04-05 08:47:47', '2026-04-05 08:47:47'),
+(3, 'khach_hang_tuan', '$2b$10$eImiTXuWV5j7pRF.y6.8SuE2vV6F5/B5I.D/mI3yI.L/L.L.L.L', 'tuan.nguyen@gmail.com', 'Lê Anh Tuấn', '0987778889', 'customer', 1, '2026-04-05 08:47:47', '2026-04-05 08:47:47');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -228,7 +280,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -240,19 +292,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -264,7 +316,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ràng buộc đối với các bảng kết xuất
