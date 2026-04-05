@@ -13,29 +13,36 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await requestAPI({
-      method: "POST",
-      url: "/users/login", // đúng API backend
-      data: {
-        email: data.email, //đúng field backend
-        password: data.password,
-      },
-    });
+    try {
+      const res = await requestAPI({
+        method: "POST",
+        url: "/users/login",
+        data: {
+          email: data.email,
+          password: data.password,
+        },
+      });
 
-    if (res && res.data) {
-      const user = res.data.user;
+      console.log(res.data);
+
+      const user = res.data.user || res.data.data;
+
+      if (!user) {
+        alert("Sai cấu trúc dữ liệu từ server!");
+        return;
+      }
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
-
+      
       localStorage.setItem("user", JSON.stringify(user));
 
       alert("Đăng nhập thành công!");
-
-      //  backend bạn CHƯA có role → nên sửa nhẹ
       navigate("/");
-    } else {
+
+    } catch (error) {
+      console.log(error);
       alert("Đăng nhập thất bại!");
     }
   };

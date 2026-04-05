@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
@@ -7,19 +7,23 @@ import './style.css';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
-  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  // ✅ load sản phẩm
   useEffect(() => {
     const fetchDetailProduct = async () => {
       try {
-        const resProduct = await requestAPI({
+        const res = await requestAPI({
           method: 'GET',
           url: `/products/${id}`,
         });
 
-        setProduct(resProduct.data.data);
+        setProduct(res.data.data);
       } catch (error) {
         console.log('Lỗi API:', error);
       }
@@ -28,6 +32,7 @@ const ProductDetails = () => {
     fetchDetailProduct();
   }, [id]);
 
+  // ✅ format tiền
   const formatVND = (price) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -35,6 +40,7 @@ const ProductDetails = () => {
     }).format(price);
   };
 
+  // ✅ load sản phẩm liên quan
   useEffect(() => {
     if (product?.category_id) {
       const fetchRelated = async () => {
@@ -55,9 +61,56 @@ const ProductDetails = () => {
       fetchRelated();
     }
   }, [product]);
+
+  // ✅ add to cart chuẩn
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      // ❌ chưa login
+      if (!token || !user) {
+        alert('Vui lòng đăng nhập để thêm vào giỏ hàng!');
+        navigate('/login');
+        return;
+      }
+
+      setLoading(true);
+
+      await requestAPI({
+        method: 'POST',
+        url: '/orders/add-to-cart',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          user_id: user.id, // ✅ BẮT BUỘC
+          product_id: product.id,
+          quantity: Number(quantity) || 1, // ✅ ép số
+        },
+      });
+
+      alert('✅ Thêm vào giỏ hàng thành công!');
+      navigate('/cart');
+    } catch (error) {
+      console.log('Lỗi add to cart:', error);
+
+      if (error.response?.status === 401) {
+        alert('Phiên đăng nhập hết hạn!');
+        navigate('/login');
+      } else {
+        alert('❌ Thêm thất bại!');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ❌ chưa load xong
   if (!product) {
     return <p className='text-center mt-5'>Đang tải sản phẩm...</p>;
   }
+
   return (
     <section className='shop-details'>
       {/* Breadcrumb */}
@@ -65,8 +118,8 @@ const ProductDetails = () => {
         <Row className='m-0'>
           <Col lg={12} className='d-flex justify-content-center'>
             <Breadcrumb className='product_details_breadcrumb'>
-              <Breadcrumb.Item href='#'>Trang chủ</Breadcrumb.Item>
-              <Breadcrumb.Item href='#'>Cửa hàng</Breadcrumb.Item>
+              <Breadcrumb.Item onClick={() => navigate('/')}>Trang chủ</Breadcrumb.Item>
+              <Breadcrumb.Item onClick={() => navigate('/shop')}>Cửa hàng</Breadcrumb.Item>
               <Breadcrumb.Item active>Chi tiết sản phẩm</Breadcrumb.Item>
             </Breadcrumb>
           </Col>
@@ -74,30 +127,28 @@ const ProductDetails = () => {
       </section>
 
       <Container>
-        {/* Product Image Gallery Section */}
+        {/* IMAGE */}
         <Container className='mt-5'>
-          <Tab.Container defaultActiveKey='thumb-1'>
-            <Row className='justify-content-center'>
-              <Col lg={5} md={8}>
-                <Tab.Content className='product__big__img border-0'>
-                  <Tab.Pane eventKey='thumb-1'>
-                    <img src={product.image} alt='Sản phẩm lớn 1' className='img-fluid w-100' 
-                    style={{height: '490px', objectFit: 'cover'}}/>
-                  </Tab.Pane>
-                </Tab.Content>
-              </Col>
-            </Row>
-          </Tab.Container>
+          <Row className='justify-content-center'>
+            <Col lg={5} md={8}>
+              <img
+                src={product.image}
+                alt={product.name}
+                className='img-fluid w-100'
+                style={{ height: '490px', objectFit: 'cover' }}
+              />
+            </Col>
+          </Row>
         </Container>
 
-        {/* Nội dung chi tiết */}
+        {/* INFO */}
         <Row className='justify-content-center text-center m-5'>
           <Col lg={8}>
             <div className='product__details__text'>
               <h4 className='fw-bold mb-2'>{product.name}</h4>
 
               <h3 className='price-detail mb-2'>
-                {product.sale_price && product.sale_price > 0 ? (
+                {product.sale_price > 0 ? (
                   <>
                     {formatVND(product.sale_price)}{' '}
                     <span className='old-price'>{formatVND(product.price)}</span>
@@ -107,34 +158,33 @@ const ProductDetails = () => {
                 )}
               </h3>
 
-              <div className='product__options mb-4'>
-                <div className='product-meta text-muted small'>
-                  <div className='fw-bolder fs-6'>
-                    DANH MỤC: <span>{product.category?.name}</span>
+              <div className='fw-bolder fs-6 mb-3'>
+                DANH MỤC: <span>{product.category?.name}</span>
+              </div>
+
+              {/* QUANTITY + CART */}
+              <div className='cart__action d-flex justify-content-center gap-3 align-items-center mb-4'>
+                <div className='quantity-control'>
+                  <input
+                    type='text'
+                    value={quantity}
+                    readOnly
+                    className='qty-input rounded-0'
+                  />
+                  <div className='qty-btns'>
+                    <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
                   </div>
                 </div>
 
-                {/* Số lượng và Nút mua hàng */}
-                <div className='cart__action d-flex justify-content-center gap-3 align-items-center mb-4'>
-                  <div className='quantity-control'>
-                    <input
-                      type='text'
-                      value={quantity}
-                      readOnly
-                      className='qty-input rounded-0'
-                    />
-                    <div className='qty-btns'>
-                      <button onClick={() => setQuantity(quantity + 1)}>+</button>
-                      <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                    </div>
-                  </div>
-                  <Button
-                    variant='dark'
-                    className='add-to-cart-btn px-5 text-uppercase rounded-0'
-                  >
-                    Thêm vào giỏ hàng
-                  </Button>
-                </div>
+                <Button
+                  variant='dark'
+                  className='px-5 text-uppercase rounded-0'
+                  onClick={handleAddToCart}
+                  disabled={loading}
+                >
+                  {loading ? 'Đang thêm...' : 'Thêm vào giỏ hàng'}
+                </Button>
               </div>
             </div>
           </Col>
@@ -176,33 +226,30 @@ const ProductDetails = () => {
           </Col>
         </Row>
 
-        {/* Sản phẩm liên quan */}
-
-        {/* Sản phẩm liên quan */}
-        <div className='related-section mt-5 pt-5'>
+        {/* RELATED */}
+        <div className='mt-5 pt-5'>
           <h3 className='text-center fw-bold mb-5'>Sản phẩm liên quan</h3>
 
           <Row>
             {relatedProducts.length > 0 ? (
               relatedProducts.map((item) => (
-                <Col lg={3} md={6} sm={6} key={item.id} className='mb-4'>
-                  <div className='product-card text-center position-relative'>
-                    <div className='product-img mb-3 overflow-hidden position-relative'>
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className='img-fluid w-100'
-                        style={{ height: '300px', objectFit: 'cover' }}
-                      />
-                      <div className='product-hover-overlay'>
-                        <FaShoppingCart />
-                      </div>
-                    </div>
+                <Col lg={3} md={6} key={item.id}>
+                  <div
+                    className='product-card text-center'
+                    onClick={() => navigate(`/product/${item.id}`)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className='img-fluid'
+                      style={{ height: '300px', objectFit: 'cover' }}
+                    />
 
-                    <h6 className='fw-bold'>{item.name}</h6>
+                    <h6 className='fw-bold mt-2'>{item.name}</h6>
 
                     <p className='text-danger fw-bold'>
-                      {item.sale_price && item.sale_price > 0 ? (
+                      {item.sale_price > 0 ? (
                         <>
                           {formatVND(item.sale_price)}{' '}
                           <span className='old-price'>{formatVND(item.price)}</span>

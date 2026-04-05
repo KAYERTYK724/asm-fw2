@@ -1,10 +1,19 @@
 import './style.css';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
-  const user = { name: '', isLoggedIn: false };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
 
   return (
     <>
@@ -65,32 +74,47 @@ const Header = () => {
                     <>
                       <FaUser className='me-2' />
                       <span className='user-name d-none d-md-inline'>
-                        {user?.name || 'Login'}
+                        {user ? user.fullname || user.fullname : 'Login'}
                       </span>
                     </>
                   }
                   id='user-nav-dropdown'
                   align='end'
                 >
-                  {!user?.isLoggedIn && (
+                  {/* CHƯA LOGIN */}
+                  {!user && (
                     <NavDropdown.Item as={Link} to='/login'>
                       <FaUser className='me-2' /> Đăng nhập
                     </NavDropdown.Item>
                   )}
 
-                  <NavDropdown.Item as={Link} to='/profile'>
-                    <FaUser className='me-2' /> Trang cá nhân
-                  </NavDropdown.Item>
+                  {/* ĐÃ LOGIN */}
+                  {user && (
+                    <>
+                      <NavDropdown.Item as={Link} to='/profile'>
+                        <FaUser className='me-2' /> Trang cá nhân
+                      </NavDropdown.Item>
 
-                  <NavDropdown.Item as={Link} to='/admin/dashboard'>
-                    <FaCog className='me-2' /> Quản trị viên
-                  </NavDropdown.Item>
+                      {/* Nếu có role admin thì mới hiện */}
+                      {user.role === 'admin' && (
+                        <NavDropdown.Item as={Link} to='/admin/dashboard'>
+                          <FaCog className='me-2' /> Quản trị viên
+                        </NavDropdown.Item>
+                      )}
 
-                  <NavDropdown.Divider />
+                      <NavDropdown.Divider />
 
-                  <NavDropdown.Item>
-                    <FaSignOutAlt className='me-2' /> Đăng xuất
-                  </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() => {
+                          localStorage.removeItem('user');
+                          localStorage.removeItem('token');
+                          window.location.href = '/login';
+                        }}
+                      >
+                        <FaSignOutAlt className='me-2' /> Đăng xuất
+                      </NavDropdown.Item>
+                    </>
+                  )}
                 </NavDropdown>
               </div>
             </div>
