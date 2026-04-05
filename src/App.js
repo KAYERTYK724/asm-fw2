@@ -12,6 +12,7 @@ import Cart from './pages/client/cart/Cart';
 import About from './pages/client/about/about';
 import Login  from './pages/client/auth/Login';
 import Register from './pages/client/auth/Register';
+// Adnin
 import Dashboard from './pages/admin/dashboard';
 import BlogListAdmin from './pages/admin/blog';
 import AddBlog from './pages/admin/blog/add';
@@ -36,7 +37,7 @@ const App = () => {
           <Route path="checkout" element={<Checkout />} />
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} /> 
+          <Route path="register" element={<Register />} /> S
           <Route path="/about" element={<About />} />
         </Route>
         {/* Admin */}
