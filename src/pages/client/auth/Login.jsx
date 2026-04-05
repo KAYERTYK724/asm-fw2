@@ -1,19 +1,43 @@
 import "./style.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import requestAPI from "../../../RequestAPI";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Email:", data.email);
-    console.log("Password:", data.password);
+  const onSubmit = async (data) => {
+    const res = await requestAPI({
+      method: "POST",
+      url: "/users/login", // đúng API backend
+      data: {
+        email: data.email, //đúng field backend
+        password: data.password,
+      },
+    });
 
-    alert("Đăng nhập thành công!");
+    if (res && res.data) {
+      const user = res.data.user;
+
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
+
+      localStorage.setItem("user", JSON.stringify(user));
+
+      alert("Đăng nhập thành công!");
+
+      //  backend bạn CHƯA có role → nên sửa nhẹ
+      navigate("/");
+    } else {
+      alert("Đăng nhập thất bại!");
+    }
   };
 
   return (
