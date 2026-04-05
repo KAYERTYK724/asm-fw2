@@ -196,7 +196,7 @@ const Product = () => {
             <Row>
               {products.map((item) => (
                 <Col lg={4} md={6} key={item.id} className='mb-4'>
-                  <Link to='/detailShop' className='text-decoration-none text-black'>
+                  <Link to={`/detailShop/${item.id}`} className='text-decoration-none text-black'>
                     <div className='product-card text-center position-relative'>
                       <div className='product-img mb-3 overflow-hidden position-relative'>
                         <img

@@ -1,44 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
+import requestAPI from '../../../RequestAPI';
 import './style.css';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
-  const relatedProducts = [
-    {
-      id: 1,
-      name: 'Áo Khoác Biker Piqué',
-      price: '$67.24',
-      status: 'Mới',
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 2,
-      name: 'Áo Khoác Slim Jacket',
-      price: '$67.24',
-      status: null,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 3,
-      name: 'Túi Đeo Ngực Nhiều Ngăn',
-      price: '$43.48',
-      status: 'Giảm giá',
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 4,
-      name: 'Mũ Lưỡi Trai Gân Chéo',
-      price: '$60.9',
-      status: null,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-  ];
+  useEffect(() => {
+    const fetchDetailProduct = async () => {
+      try {
+        const resProduct = await requestAPI({
+          method: 'GET',
+          url: `/products/${id}`,
+        });
 
+        setProduct(resProduct.data.data);
+      } catch (error) {
+        console.log('Lỗi API:', error);
+      }
+    };
+
+    fetchDetailProduct();
+  }, [id]);
+
+  const formatVND = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(price);
+  };
+
+  useEffect(() => {
+    if (product?.category_id) {
+      const fetchRelated = async () => {
+        try {
+          const res = await requestAPI({
+            method: 'GET',
+            url: `/products/list?categoryId=${product.category_id}`,
+          });
+
+          const filtered = res.data.data.filter((item) => item.id !== product.id);
+
+          setRelatedProducts(filtered);
+        } catch (error) {
+          console.log('Lỗi related:', error);
+        }
+      };
+
+      fetchRelated();
+    }
+  }, [product]);
+  if (!product) {
+    return <p className='text-center mt-5'>Đang tải sản phẩm...</p>;
+  }
   return (
-    <section className='shop-details py-5'>
+    <section className='shop-details'>
       {/* Breadcrumb */}
       <section className='breadcrumb-section-details'>
         <Row className='m-0'>
@@ -60,11 +81,8 @@ const ProductDetails = () => {
               <Col lg={5} md={8}>
                 <Tab.Content className='product__big__img border-0'>
                   <Tab.Pane eventKey='thumb-1'>
-                    <img
-                      src='https://i.pinimg.com/1200x/a6/85/93/a68593220d20e4a56bc50c88688bd1d8.jpg'
-                      alt='Sản phẩm lớn 1'
-                      className='img-fluid w-100'
-                    />
+                    <img src={product.image} alt='Sản phẩm lớn 1' className='img-fluid w-100' 
+                    style={{height: '490px', objectFit: 'cover'}}/>
                   </Tab.Pane>
                 </Tab.Content>
               </Col>
@@ -76,44 +94,44 @@ const ProductDetails = () => {
         <Row className='justify-content-center text-center m-5'>
           <Col lg={8}>
             <div className='product__details__text'>
-              <h4 className='fw-bold mb-2'>Áo khoác Anorak nhiệt có mũ</h4>
+              <h4 className='fw-bold mb-2'>{product.name}</h4>
 
               <h3 className='price-detail mb-2'>
-                $270.00 <span className='old-price'>$370.00</span>
+                {product.sale_price && product.sale_price > 0 ? (
+                  <>
+                    {formatVND(product.sale_price)}{' '}
+                    <span className='old-price'>{formatVND(product.price)}</span>
+                  </>
+                ) : (
+                  formatVND(product.price)
+                )}
               </h3>
 
               <div className='product__options mb-4'>
                 <div className='product-meta text-muted small'>
                   <div className='fw-bolder fs-6'>
-                    DANH MỤC: <span>3812912</span>
+                    DANH MỤC: <span>{product.category?.name}</span>
                   </div>
                 </div>
 
                 {/* Số lượng và Nút mua hàng */}
                 <div className='cart__action d-flex justify-content-center gap-3 align-items-center mb-4'>
-                  <div className='quantity-control border d-flex align-items-center'>
+                  <div className='quantity-control'>
                     <input
                       type='text'
                       value={quantity}
                       readOnly
-                      className='qty-input text-center'
+                      className='qty-input rounded-0'
                     />
-                    <div className='qty-btns d-flex flex-column border-start'>
-                      <button
-                        onClick={() => setQuantity(quantity + 1)}
-                        className='border-0 bg-transparent'
-                      >
-                        ^
-                      </button>
-                      <button
-                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className='border-0 bg-transparent'
-                      >
-                        v
-                      </button>
+                    <div className='qty-btns'>
+                      <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                      <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
                     </div>
                   </div>
-                  <Button variant='dark' className='add-to-cart-btn px-5 text-uppercase'>
+                  <Button
+                    variant='dark'
+                    className='add-to-cart-btn px-5 text-uppercase rounded-0'
+                  >
                     Thêm vào giỏ hàng
                   </Button>
                 </div>
@@ -180,23 +198,46 @@ const ProductDetails = () => {
         </Row>
 
         {/* Sản phẩm liên quan */}
+
+        {/* Sản phẩm liên quan */}
         <div className='related-section mt-5 pt-5'>
           <h3 className='text-center fw-bold mb-5'>Sản phẩm liên quan</h3>
+
           <Row>
-            {relatedProducts.map((item) => (
-              <Col lg={3} md={6} sm={6} key={item.id} className='mb-4'>
-                <div className='product-card text-center position-relative'>
-                  <div className='product-img mb-3 overflow-hidden position-relative'>
-                    <img src={item.img} alt={item.name} className='img-fluid w-100' />
-                    <div className='product-hover-overlay'>
-                      <FaShoppingCart />
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map((item) => (
+                <Col lg={3} md={6} sm={6} key={item.id} className='mb-4'>
+                  <div className='product-card text-center position-relative'>
+                    <div className='product-img mb-3 overflow-hidden position-relative'>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className='img-fluid w-100'
+                        style={{ height: '300px', objectFit: 'cover' }}
+                      />
+                      <div className='product-hover-overlay'>
+                        <FaShoppingCart />
+                      </div>
                     </div>
+
+                    <h6 className='fw-bold'>{item.name}</h6>
+
+                    <p className='text-danger fw-bold'>
+                      {item.sale_price && item.sale_price > 0 ? (
+                        <>
+                          {formatVND(item.sale_price)}{' '}
+                          <span className='old-price'>{formatVND(item.price)}</span>
+                        </>
+                      ) : (
+                        formatVND(item.price)
+                      )}
+                    </p>
                   </div>
-                  <h6 className='fw-bold'>{item.name}</h6>
-                  <p className='text-danger fw-bold'>{item.price}</p>
-                </div>
-              </Col>
-            ))}
+                </Col>
+              ))
+            ) : (
+              <p className='text-center'>Không có sản phẩm liên quan</p>
+            )}
           </Row>
         </div>
       </Container>

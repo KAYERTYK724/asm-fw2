@@ -4,7 +4,7 @@ import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
-  const user = { name: 'Nguyễn Văn A', isLoggedIn: true };
+  const user = { name: '', isLoggedIn: false };
 
   return (
     <>
@@ -74,7 +74,7 @@ const Header = () => {
                 >
                   {!user?.isLoggedIn && (
                     <NavDropdown.Item as={Link} to='/login'>
-                      Đăng nhập
+                      <FaUser className='me-2' /> Đăng nhập
                     </NavDropdown.Item>
                   )}
 

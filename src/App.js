@@ -35,7 +35,7 @@ const App = () => {
         <Route path='/' element={<ClientLayout/>}>
           <Route index element={<PageHome/>}/>
           <Route path='shop' element={<Product/>}/>
-          <Route path='detailShop' element={<ProductDetails/>}/>
+          <Route path="detailShop/:id" element={<ProductDetails />} />
           <Route path='blog' element={<Blog/>}/>
           <Route path='detailBlog' element={<BlogDetails/>}/>
           <Route path="contact" element={<Contact />} />
