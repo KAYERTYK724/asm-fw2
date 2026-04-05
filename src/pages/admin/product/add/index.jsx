@@ -238,7 +238,7 @@ const AddProduct = () => {
                         <Button variant="success" className="rounded-pill px-5 fw-bold shadow-sm" type="submit">
                             <FaSave className="me-2" /> XÁC NHẬN THÊM
                         </Button>
-                        <Button variant="outline-light" className="rounded-pill px-4">
+                        <Button variant="outline-light" className="rounded-pill px-4" type='reset'>
                             Hủy bỏ
                         </Button>
                     </div>
