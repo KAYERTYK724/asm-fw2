@@ -1,30 +1,67 @@
 import React from "react";
 import "./style.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import requestAPI from "../../../RequestAPI";
 
 const Checkout = () => {
-  const items = [
+  const navigate = useNavigate();
+
+  const cartRaw = localStorage.getItem("cart");
+  const items = cartRaw ? JSON.parse(cartRaw) : [
     { id: 1, name: "Áo thun", price: 200000, qty: 2 },
     { id: 2, name: "Quần jean", price: 500000, qty: 1 },
   ];
 
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const subtotal = items.reduce((sum, i) => sum + i.price * (i.qty || i.quantity || 1), 0);
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const orderRes = await requestAPI({
+      method: "POST",
+      url: "/orders/add",
+      data: {
+        user_id: user.id || 1,
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        address: data.address,
+        payments: data.payment,
+        payment_status: 0,
+        order_status: 0,
+        total_price: subtotal,
+      },
+    });
+
+    if (!orderRes || !orderRes.data?.data) {
+      alert("Đặt hàng thất bại, vui lòng thử lại!");
+      return;
+    }
+
+    const orderId = orderRes.data.data.id;
+
+    for (const item of items) {
+      await requestAPI({
+        method: "POST",
+        url: "/order-details/add",
+        data: {
+          order_id: orderId,
+          product_id: item.id,
+          quantity: item.qty || item.quantity || 1,
+          price: item.price,
+        },
+      });
+    }
+
+    localStorage.removeItem("cart");
     alert("Đặt hàng thành công!");
+    navigate("/");
   };
 
   return (
     <div className="checkout-page">
-
-      {/* HEADER */}
       <div className="checkout-header">
         <h2>Thanh toán</h2>
         <p>Trang chủ / Giỏ hàng / Thanh toán</p>
@@ -33,107 +70,50 @@ const Checkout = () => {
       <div className="checkout-container">
 
         {/* LEFT */}
-        <form
-          id="checkout-form"
-          className="checkout-form"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <h3>Thông tin thanh toán</h3>
-
-          <div className="row">
-            <div>
-              <input
-                placeholder="Họ *"
-                {...register("firstName", { required: "Vui lòng nhập họ" })}
-              />
-              {errors.firstName && <small>{errors.firstName.message}</small>}
-            </div>
-
-            <div>
-              <input
-                placeholder="Tên *"
-                {...register("lastName", { required: "Vui lòng nhập tên" })}
-              />
-              {errors.lastName && <small>{errors.lastName.message}</small>}
-            </div>
-          </div>
+        <form id="checkout-form" className="checkout-form" onSubmit={handleSubmit(onSubmit)}>
+          <h3>Thông tin nhận hàng</h3>
 
           <input
-            placeholder="Quốc gia *"
-            {...register("country", { required: "Vui lòng nhập quốc gia" })}
+            placeholder="Họ và tên *"
+            {...register("name", { required: "Vui lòng nhập họ tên" })}
           />
-          {errors.country && <small>{errors.country.message}</small>}
+          {errors.name && <small>{errors.name.message}</small>}
 
           <input
-            placeholder="Địa chỉ *"
+            placeholder="Số điện thoại *"
+            {...register("phone", {
+              required: "Vui lòng nhập số điện thoại",
+              pattern: { value: /^[0-9]{9,11}$/, message: "SĐT không hợp lệ" },
+            })}
+          />
+          {errors.phone && <small>{errors.phone.message}</small>}
+
+          <input
+            placeholder="Email *"
+            {...register("email", {
+              required: "Vui lòng nhập email",
+              pattern: { value: /^\S+@\S+$/i, message: "Email không hợp lệ" },
+            })}
+          />
+          {errors.email && <small>{errors.email.message}</small>}
+
+          <input
+            placeholder="Địa chỉ nhận hàng *"
             {...register("address", { required: "Vui lòng nhập địa chỉ" })}
           />
           {errors.address && <small>{errors.address.message}</small>}
 
-          <input placeholder="Căn hộ, số nhà (không bắt buộc)" />
-
-          <input
-            placeholder="Thành phố *"
-            {...register("city", { required: "Vui lòng nhập thành phố" })}
-          />
-          {errors.city && <small>{errors.city.message}</small>}
-
-          <input
-            placeholder="Tỉnh / Thành *"
-            {...register("state", { required: "Vui lòng nhập tỉnh" })}
-          />
-          {errors.state && <small>{errors.state.message}</small>}
-
-          <input
-            placeholder="Mã bưu điện *"
-            {...register("zip", { required: "Vui lòng nhập mã ZIP" })}
-          />
-          {errors.zip && <small>{errors.zip.message}</small>}
-
-          <div className="row">
-            <div>
-              <input
-                placeholder="Số điện thoại *"
-                {...register("phone", {
-                  required: "Vui lòng nhập số điện thoại",
-                  pattern: {
-                    value: /^[0-9]{9,11}$/,
-                    message: "SĐT không hợp lệ",
-                  },
-                })}
-              />
-              {errors.phone && <small>{errors.phone.message}</small>}
-            </div>
-
-            <div>
-              <input
-                placeholder="Email *"
-                {...register("email", {
-                  required: "Vui lòng nhập email",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Email không hợp lệ",
-                  },
-                })}
-              />
-              {errors.email && <small>{errors.email.message}</small>}
-            </div>
-          </div>
-
-          <textarea placeholder="Ghi chú thêm..." />
-
+          <textarea placeholder="Ghi chú thêm (không bắt buộc)..." {...register("note")} />
         </form>
 
         {/* RIGHT */}
         <div className="checkout-summary">
           <h3>Đơn hàng của bạn</h3>
 
-          {items.map((item) => (
-            <div key={item.id} className="summary-item">
+          {items.map((item, i) => (
+            <div key={i} className="summary-item">
               <span>{item.name}</span>
-              <span>
-                {item.qty} × {item.price.toLocaleString()}đ
-              </span>
+              <span>{(item.qty || item.quantity || 1)} × {item.price.toLocaleString()}đ</span>
             </div>
           ))}
 
@@ -149,31 +129,17 @@ const Checkout = () => {
 
           <div className="payment">
             <label>
-              <input
-                type="radio"
-                value="cod"
-                {...register("payment", { required: true })}
-              />
+              <input type="radio" value="cod" defaultChecked {...register("payment", { required: true })} />
               Thanh toán khi nhận hàng
             </label>
-
             <label>
-              <input
-                type="radio"
-                value="bank"
-                {...register("payment", { required: true })}
-              />
+              <input type="radio" value="bank" {...register("payment", { required: true })} />
               Chuyển khoản ngân hàng
             </label>
-
-            {errors.payment && (
-              <small>Vui lòng chọn phương thức thanh toán</small>
-            )}
+            {errors.payment && <small>Vui lòng chọn phương thức thanh toán</small>}
           </div>
 
-          <button form="checkout-form" className="btn-order">
-            ĐẶT HÀNG
-          </button>
+          <button form="checkout-form" className="btn-order">ĐẶT HÀNG</button>
         </div>
 
       </div>

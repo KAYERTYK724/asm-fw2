@@ -3110,6 +3110,7 @@ axe-core@^4.10.0:
   integrity sha512-byD6KPdvo72y/wj2T/4zGEvvlis+PsZsn/yPS3pEO+sFpcrqRpX/TJCxvVaEsNeMrfQbCr7w163YqoD9IYwHXw==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 axios@1.13.0:
   version "1.13.0"
   resolved "https://registry.npmjs.org/axios/-/axios-1.13.0.tgz"
@@ -3120,6 +3121,12 @@ axios@^1.14.0:
   resolved "https://registry.npmjs.org/axios/-/axios-1.14.0.tgz"
   integrity sha512-3Y8yrqLSwjuzpXuZ0oIYZ/XGgLwUIBU3uLvbcpb0pidD9ctpShJd43KSlEEkVQg6DS0G9NKyzOvBfUtDKEyHvQ==
 >>>>>>> 19a05250907c7a5ff46cd68c664256f19ef0e524
+=======
+axios@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.14.0.tgz#7c29f4cf2ea91ef05018d5aa5399bf23ed3120eb"
+  integrity sha512-3Y8yrqLSwjuzpXuZ0oIYZ/XGgLwUIBU3uLvbcpb0pidD9ctpShJd43KSlEEkVQg6DS0G9NKyzOvBfUtDKEyHvQ==
+>>>>>>> 9759b1eb46c980ecf2d4dd1a42e0e35f599d551b
   dependencies:
     follow-redirects "^1.15.11"
     form-data "^4.0.5"
@@ -8230,6 +8237,7 @@ proxy-addr@~2.0.7:
     ipaddr.js "1.9.1"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 proxy-from-env@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
@@ -8240,6 +8248,12 @@ proxy-from-env@^2.1.0:
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-2.1.0.tgz"
   integrity sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==
 >>>>>>> 19a05250907c7a5ff46cd68c664256f19ef0e524
+=======
+proxy-from-env@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-2.1.0.tgz#a7487568adad577cfaaa7e88c49cab3ab3081aba"
+  integrity sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==
+>>>>>>> 9759b1eb46c980ecf2d4dd1a42e0e35f599d551b
 
 psl@^1.1.33:
   version "1.15.0"
@@ -8383,12 +8397,18 @@ react-error-overlay@^6.0.11:
   integrity sha512-SN/U6Ytxf1QGkw/9ve5Y+NxBbZM6Ht95tuXNMKs8EJyFa/Vy/+Co3stop3KBHARfn/giv+Lj1uUnTfOJ3moFEQ==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-hook-form@^7.72.0:
 =======
 react-hook-form@^7.72.1:
 >>>>>>> 19a05250907c7a5ff46cd68c664256f19ef0e524
   version "7.72.1"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.72.1.tgz"
+=======
+react-hook-form@^7.72.1:
+  version "7.72.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.72.1.tgz#19a8bbeaf685934f4c9fc422294cc730ade2780e"
+>>>>>>> 9759b1eb46c980ecf2d4dd1a42e0e35f599d551b
   integrity sha512-RhwBoy2ygeVZje+C+bwJ8g0NjTdBmDlJvAUHTxRjTmSUKPYsKfMphkS2sgEMotsY03bP358yEYlnUeZy//D9Ig==
 
 react-icons@^5.6.0:
