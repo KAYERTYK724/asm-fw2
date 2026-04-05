@@ -9,7 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const orderDetailRoutes = require('./routes/orderDetailRoutes');
-
+require('./models/associations');
 app.use(express.json())
 
 app.use(cors({

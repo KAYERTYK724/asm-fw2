@@ -1,11 +1,19 @@
 import './style.css';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Nav, Navbar, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingBag, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Header = () => {
+  const [user, setUser] = useState(null);
 
-  const user = { name: 'Nguyễn Văn A', isLoggedIn: true };
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
 
   return (
     <>
@@ -34,49 +42,79 @@ const Header = () => {
           <Navbar.Collapse>
             {/* MENU */}
             <Nav className='mx-auto menu'>
-
-              <Nav.Link as={Link} to='/'>TRANG CHỦ</Nav.Link>
-              <Nav.Link as={Link} to='/shop'>CỬA HÀNG</Nav.Link>
-              <Nav.Link as={Link} to='/blog'>TIN TỨC</Nav.Link>
-              <Nav.Link as={Link} to='/about'>GIỚI THIỆU</Nav.Link>
-              <Nav.Link as={Link} to='/contact'>LIÊN HỆ</Nav.Link>
+              <Nav.Link as={Link} to='/'>
+                TRANG CHỦ
+              </Nav.Link>
+              <Nav.Link as={Link} to='/shop'>
+                CỬA HÀNG
+              </Nav.Link>
+              <Nav.Link as={Link} to='/blog'>
+                TIN TỨC
+              </Nav.Link>
+              <Nav.Link as={Link} to='/about'>
+                GIỚI THIỆU
+              </Nav.Link>
+              <Nav.Link as={Link} to='/contact'>
+                LIÊN HỆ
+              </Nav.Link>
             </Nav>
 
             {/* ICONS */}
             <div className='nav-icons'>
               <FaSearch />
               <div className='cart'>
-                <Link to="/cart" className='text-decoration-none text-black'>
+                <Link to='/cart' className='text-decoration-none text-black'>
                   <FaShoppingBag />
-                  <span className="count">0</span>
+                  <span className='count'>0</span>
                 </Link>
               </div>
               <div className='user-dropdown'>
                 <NavDropdown
                   title={
-                    <Link to="/login" className="user-info text-decoration-none text-black">
-                      <FaUser className="me-2" />
-                      <span className="user-name d-none d-md-inline">
-                        {user?.name || "Login"}
+                    <>
+                      <FaUser className='me-2' />
+                      <span className='user-name d-none d-md-inline'>
+                        {user ? user.fullname || user.fullname : 'Login'}
                       </span>
-                    </Link>
+                    </>
                   }
                   id='user-nav-dropdown'
                   align='end'
                 >
-                  <NavDropdown.Item as={Link} to='/profile' className='dropdown-item'>
-                    <FaUser className='me-2' /> Trang cá nhân
-                  </NavDropdown.Item>
+                  {/* CHƯA LOGIN */}
+                  {!user && (
+                    <NavDropdown.Item as={Link} to='/login'>
+                      <FaUser className='me-2' /> Đăng nhập
+                    </NavDropdown.Item>
+                  )}
 
-                  <NavDropdown.Item as={Link} to='/admin/dashboard' className='dropdown-item'>
-                    <FaCog className='me-2' /> Quản trị viên
-                  </NavDropdown.Item>
+                  {/* ĐÃ LOGIN */}
+                  {user && (
+                    <>
+                      <NavDropdown.Item as={Link} to='/profile'>
+                        <FaUser className='me-2' /> Trang cá nhân
+                      </NavDropdown.Item>
 
-                  <NavDropdown.Divider />
+                      {/* Nếu có role admin thì mới hiện */}
+                      {user.role === 'admin' && (
+                        <NavDropdown.Item as={Link} to='/admin/dashboard'>
+                          <FaCog className='me-2' /> Quản trị viên
+                        </NavDropdown.Item>
+                      )}
 
-                  <NavDropdown.Item className='dropdown-item'>
-                    <FaSignOutAlt className='me-2' /> Đăng xuất
-                  </NavDropdown.Item>
+                      <NavDropdown.Divider />
+
+                      <NavDropdown.Item
+                        onClick={() => {
+                          localStorage.removeItem('user');
+                          localStorage.removeItem('token');
+                          window.location.href = '/login';
+                        }}
+                      >
+                        <FaSignOutAlt className='me-2' /> Đăng xuất
+                      </NavDropdown.Item>
+                    </>
+                  )}
                 </NavDropdown>
               </div>
             </div>

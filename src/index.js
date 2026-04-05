@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from 'react-router-dom';
+import '@ckeditor/ckeditor5-build-classic/build/translations/vi';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

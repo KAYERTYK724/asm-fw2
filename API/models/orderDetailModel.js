@@ -1,7 +1,5 @@
 const connection = require('../database');
 const { DataTypes } = require('sequelize');
-const Product = require('./productModel');
-const Order = require('./orderModel');
 
 const OrderDetail = connection.define('OrderDetail', {
     id: {
@@ -33,7 +31,5 @@ const OrderDetail = connection.define('OrderDetail', {
     timestamps: true,
 });
 
-OrderDetail.belongsTo(Order, { foreignKey: 'order_id', as: 'order' });
-OrderDetail.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
 
 module.exports = OrderDetail;

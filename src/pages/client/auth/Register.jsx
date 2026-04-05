@@ -1,8 +1,11 @@
 import "./style.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import requestAPI from "../../../RequestAPI";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -12,9 +15,23 @@ const Register = () => {
 
   const password = watch("password");
 
-  const onSubmit = (data) => {
-    console.log(data);
-    alert("Đăng ký thành công!");
+  const onSubmit = async (data) => {
+    const res = await requestAPI({
+      method: "POST",
+      url: "/users/register", // đúng API
+      data: {
+        name: data.name,      // thêm name
+        email: data.email,    //đúng field
+        password: data.password,
+      },
+    });
+
+    if (res && res.data) {
+      alert("Đăng ký thành công!");
+      navigate("/login");
+    } else {
+      alert("Đăng ký thất bại!");
+    }
   };
 
   return (
@@ -38,7 +55,7 @@ const Register = () => {
             Đăng ký
           </span>
 
-          {/* NAME */}
+          {/* NAME (optional, backend chưa dùng) */}
           <div className="wrap-input100">
             <input
               className={`input100 ${errors.name ? "input-error" : ""}`}
