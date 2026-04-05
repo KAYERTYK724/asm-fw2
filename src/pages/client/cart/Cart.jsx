@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './style.css';
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import requestAPI from '../../../RequestAPI';
 
@@ -11,7 +10,6 @@ const Cart = () => {
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  // ✅ check login
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -21,7 +19,6 @@ const Cart = () => {
     }
   }, []);
 
-  // ✅ load cart
   const fetchCart = async () => {
     try {
       if (!user) return;
@@ -46,24 +43,16 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  // ✅ update số lượng
   const updateQty = async (id, value) => {
     if (isNaN(value) || value < 1) return;
 
     try {
       await requestAPI({
         method: 'PUT',
-        url: `/orders/cart/${id}`, // ✅ FIX API
+        url: `/orders/cart/${id}`,
         data: { quantity: value },
       });
 
-      // update local state cho mượt
       setItems((prev) =>
         prev.map((item) => (item.id === id ? { ...item, quantity: value } : item)),
       );
@@ -72,12 +61,11 @@ const Cart = () => {
     }
   };
 
-  // ✅ xoá sản phẩm
   const removeItem = async (id) => {
     try {
       await requestAPI({
         method: 'DELETE',
-        url: `/orders/cart/${id}`, // ✅ FIX API
+        url: `/orders/cart/${id}`,
       });
 
       setItems((prev) => prev.filter((i) => i.id !== id));
@@ -89,10 +77,6 @@ const Cart = () => {
   // ✅ tính tổng tiền (anti crash)
   const subtotal = items.reduce((sum, i) => sum + (i.product?.price || 0) * i.quantity, 0);
 
-  const onApplyCoupon = (data) => {
-    alert('Áp dụng mã: ' + data.coupon);
-  };
-
   return (
     <div className='cart-page'>
       <div className='cart-header'>
@@ -100,9 +84,9 @@ const Cart = () => {
         <p>Trang chủ / Cửa hàng / Giỏ hàng</p>
       </div>
 
-      <div className='cart-container'>
+      <div className='cart-container '>
         {/* LEFT */}
-        <div className='cart-list'>
+        <div className='cart-list rounded-0'>
           <div className='cart-title'>
             <span>Sản phẩm</span>
             <span>Số lượng</span>
@@ -116,7 +100,7 @@ const Cart = () => {
               <div className='cart-item' key={item.id}>
                 {/* PRODUCT */}
                 <div className='product'>
-                  <img src={item.product?.image} alt='' />
+                  <img src={item.product?.image} className='rounded-0' alt='' />
                   <div>
                     <p>{item.product?.name}</p>
                     <span>{(item.product?.price || 0).toLocaleString()}đ</span>
@@ -130,7 +114,7 @@ const Cart = () => {
                     value={item.quantity}
                     min='1'
                     onChange={(e) => updateQty(item.id, parseInt(e.target.value))}
-                    className='qty-input'
+                    className='qty-input rounded-0'
                   />
                 </div>
 
@@ -148,28 +132,15 @@ const Cart = () => {
           )}
 
           <div className='cart-actions'>
-            <button className='btn-light' onClick={() => navigate('/shop')}>
+            <button className='btn-light rounded-0' onClick={() => navigate('/shop')}>
               ← Tiếp tục mua
             </button>
           </div>
         </div>
 
         {/* RIGHT */}
-        <div className='cart-summary'>
-          <form onSubmit={handleSubmit(onApplyCoupon)} className='coupon-box'>
-            <input
-              placeholder='Nhập mã giảm giá'
-              {...register('coupon', {
-                required: 'Vui lòng nhập mã',
-              })}
-            />
-            <button>Áp dụng</button>
-          </form>
-
-          {errors.coupon && <small>{errors.coupon.message}</small>}
-
+        <div className='cart-summary rounded-0'>
           <h3>Tổng giỏ hàng</h3>
-
           <div className='summary-row'>
             <span>Tạm tính</span>
             <span>{subtotal.toLocaleString()}đ</span>
@@ -180,8 +151,8 @@ const Cart = () => {
             <span>{subtotal.toLocaleString()}đ</span>
           </div>
 
-          <button className='btn-checkout'>
-            <Link to='/checkout' className='text-decoration-none text-white'>
+          <button className='btn-checkout rounded-0'>
+            <Link to='/checkout' className='text-decoration-none text-white '>
               Thanh toán
             </Link>
           </button>

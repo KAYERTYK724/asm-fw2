@@ -1,9 +1,18 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import { FaUserEdit, FaTachometerAlt, FaCube } from 'react-icons/fa';
 import './style.css';
 
 const SidebarAdmin = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            setUser(JSON.parse(userData));
+        }
+    }, []);
     return (
         <div className="sidebar pe-4 pb-3">
             <nav className="navbar bg-secondary navbar-dark">
@@ -24,7 +33,9 @@ const SidebarAdmin = () => {
                         <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div className="ms-3">
-                        <h6 className="mb-0 text-white">John Doe</h6>
+                        <h6 className="mb-0 text-white">
+                            {user ? user.fullname || user.fullname : "Admin"}
+                        </h6>
                         <small>Quản trị viên</small>
                     </div>
                 </div>

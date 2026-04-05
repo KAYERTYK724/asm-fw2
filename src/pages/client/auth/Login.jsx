@@ -1,7 +1,7 @@
-import "./style.css";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import requestAPI from "../../../RequestAPI";
+import './style.css';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import requestAPI from '../../../RequestAPI';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const res = await requestAPI({
-        method: "POST",
-        url: "/users/login",
+        method: 'POST',
+        url: '/users/login',
         data: {
           email: data.email,
           password: data.password,
@@ -28,122 +28,109 @@ const Login = () => {
       const user = res.data.user || res.data.data;
 
       if (!user) {
-        alert("Sai cấu trúc dữ liệu từ server!");
+        alert('Sai cấu trúc dữ liệu từ server!');
         return;
       }
 
       if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem('token', res.data.token);
       }
-      
-      localStorage.setItem("user", JSON.stringify(user));
 
-      alert("Đăng nhập thành công!");
-      navigate("/");
+      localStorage.setItem('user', JSON.stringify(user));
 
+      localStorage.setItem('role', user.role);
+
+      alert('Đăng nhập thành công!');
+      if (user.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       console.log(error);
-      alert("Đăng nhập thất bại!");
+      alert('Đăng nhập thất bại!');
     }
   };
 
   return (
-    <div className="container-login100">
-      <div className="wrap-login100">
-
+    <div className='container-login100'>
+      <div className='wrap-login100'>
         {/* IMAGE */}
-        <div className="login100-pic">
-          <img
-            src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png"
-            alt="IMG"
-          />
+        <div className='login100-pic'>
+          <img src='https://colorlib.com/etc/lf/Login_v1/images/img-01.png' alt='IMG' />
         </div>
 
         {/* FORM */}
-        <form
-          className="login100-form validate-form"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <span className="login100-form-title">
-            Đăng nhập
-          </span>
+        <form className='login100-form validate-form' onSubmit={handleSubmit(onSubmit)}>
+          <span className='login100-form-title'>Đăng nhập</span>
 
           {/* EMAIL */}
-          <div className="wrap-input100">
+          <div className='wrap-input100'>
             <input
-              className="input100"
-              type="text"
-              placeholder="Email"
-              {...register("email", {
-                required: "Email không được để trống",
+              className='input100'
+              type='text'
+              placeholder='Email'
+              {...register('email', {
+                required: 'Email không được để trống',
                 pattern: {
                   value: /^\S+@\S+\.\S+$/,
-                  message: "Email không đúng định dạng",
+                  message: 'Email không đúng định dạng',
                 },
               })}
             />
 
-            <span className="focus-input100"></span>
-            <span className="symbol-input100">
-              <i className="fa fa-envelope"></i>
+            <span className='focus-input100'></span>
+            <span className='symbol-input100'>
+              <i className='fa fa-envelope'></i>
             </span>
 
-            {errors.email && (
-              <small className="error-text">
-                {errors.email.message}
-              </small>
-            )}
+            {errors.email && <small className='error-text'>{errors.email.message}</small>}
           </div>
 
           {/* PASSWORD */}
-          <div className="wrap-input100">
+          <div className='wrap-input100'>
             <input
-              className="input100"
-              type="password"
-              placeholder="Mật khẩu"
-              {...register("password", {
-                required: "Mật khẩu không được để trống",
+              className='input100'
+              type='password'
+              placeholder='Mật khẩu'
+              {...register('password', {
+                required: 'Mật khẩu không được để trống',
                 minLength: {
                   value: 6,
-                  message: "Mật khẩu tối thiểu 6 ký tự",
+                  message: 'Mật khẩu tối thiểu 6 ký tự',
                 },
               })}
             />
 
-            <span className="focus-input100"></span>
-            <span className="symbol-input100">
-              <i className="fa fa-lock"></i>
+            <span className='focus-input100'></span>
+            <span className='symbol-input100'>
+              <i className='fa fa-lock'></i>
             </span>
 
-            {errors.password && (
-              <small className="error-text">
-                {errors.password.message}
-              </small>
-            )}
+            {errors.password && <small className='error-text'>{errors.password.message}</small>}
           </div>
 
           {/* BUTTON */}
-          <div className="container-login100-form-btn">
-            <button type="submit" className="login100-form-btn">
+          <div className='container-login100-form-btn'>
+            <button type='submit' className='login100-form-btn'>
               Đăng nhập
             </button>
           </div>
 
           {/* FORGOT */}
-          <div className="text-center p-t-12">
-            <Link className="txt2" to="/forgot-password">
+          <div className='text-center p-t-12'>
+            <Link className='txt2' to='/forgot-password'>
               Quên mật khẩu?
             </Link>
           </div>
 
           {/* REGISTER */}
-          <div className="text-center p-t-136">
-            <Link className="txt2" to="/register">
+          <div className='text-center p-t-136'>
+            <Link className='txt2' to='/register'>
               Tạo tài khoản
-              <i className="fa fa-long-arrow-right m-l-5"></i>
+              <i className='fa fa-long-arrow-right m-l-5'></i>
             </Link>
           </div>
-
         </form>
       </div>
     </div>

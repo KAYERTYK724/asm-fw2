@@ -28,7 +28,7 @@ body {
 .cart-container {
   display: flex;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 50px auto;
   padding: 0 20px;
   align-items: flex-start;
@@ -145,7 +145,8 @@ body {
 }
 
 .btn-light:hover {
-  background: #f5f5f5;
+  color: white;
+  background: #000000;
 }
 
 .btn-dark {

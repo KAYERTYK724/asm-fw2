@@ -18,7 +18,7 @@
 }
 
 .navbar .dropdown-item {
-    color: var(--light);
+    color: white;
 }
 
 .navbar .dropdown-item:hover {
