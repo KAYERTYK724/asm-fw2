@@ -1,0 +1,65 @@
+/* Tông màu DarkPan chủ đạo */
+.bg-secondary {
+    background-color: #191C24 !important; /* Đen nhạt cho Card */
+}
+
+.text-light-gray {
+    color: #6C7293 !important; /* Xám chữ phụ */
+}
+
+.text-danger-custom {
+    color: #EB1616 !important; /* Đỏ thương hiệu */
+}
+
+/* Hiệu ứng tiêu đề */
+.border-bottom-red {
+    border-bottom: 3px solid #EB1616;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Khung ảnh bài viết */
+.border-dark-custom {
+    border: 8px solid #000000;
+}
+
+/* Nội dung bài viết */
+.content-render h5 {
+    font-weight: 700;
+    border-left: 4px solid #EB1616;
+    padding-left: 15px;
+    margin-top: 30px;
+}
+
+.content-render p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+/* Tùy chỉnh nút */
+.btn-edit-custom {
+    background-color: #ffc107 !important;
+    border: none !important;
+    transition: 0.3s !important;
+}
+
+.btn-edit-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4) !important;
+}
+
+.btn-back-custom {
+    border-color: #6C7293 !important;
+    color: #6C7293 !important;
+    transition: 0.3s !important;
+}
+
+.btn-back-custom:hover {
+    background-color: #6C7293 !important;
+    color: #000 !important;
+}
+
+/* Badge thành công (Xanh DarkPan) */
+.bg-success {
+    background-color: #00892c !important;
+}

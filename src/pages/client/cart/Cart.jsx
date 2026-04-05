@@ -1,6 +1,7 @@
 import "./style.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [items, setItems] = useState([
@@ -120,12 +121,9 @@ const Cart = () => {
             <button className="btn-light">← Tiếp tục mua</button>
             <button className="btn-dark">Cập nhật giỏ hàng</button>
           </div>
-
         </div>
-
         {/* RIGHT */}
         <div className="cart-summary">
-
           {/* COUPON */}
           <form
             onSubmit={handleSubmit(onApplyCoupon)}
@@ -155,7 +153,9 @@ const Cart = () => {
           </div>
 
           <button className="btn-checkout">
-            Thanh toán
+            <Link to='/checkout' className='text-decoration-none text-white'>
+              Thanh toán
+            </Link>
           </button>
         </div>
 

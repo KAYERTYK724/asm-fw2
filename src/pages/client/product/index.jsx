@@ -1,89 +1,35 @@
 import './style.css';
-import React from 'react';
+import {React ,useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Accordion, Pagination,} from 'react-bootstrap';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
+import requestAPI from '../../../RequestAPI';
 
 const Product = () => {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const allKeys = ['0', '1', '2', '3', '4', '5'];
-  const products = [
-    {
-      id: 1,
-      name: 'Áo khoác Biker Piqué',
-      price: 67.24,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 2,
-      name: 'Túi đeo ngực nhiều ngăn',
-      price: 43.48,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-      sale: true,
-    },
-    {
-      id: 3,
-      name: 'Nón họa tiết chéo',
-      price: 60.9,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 4,
-      name: 'Boot cổ ngắn',
-      price: 98.49,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-      sale: true,
-    },
-    {
-      id: 5,
-      name: 'Áo thun túi phối',
-      price: 49.66,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 6,
-      name: 'Khăn choàng basic',
-      price: 26.28,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 1,
-      name: 'Áo khoác Biker Piqué',
-      price: 67.24,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 2,
-      name: 'Túi đeo ngực nhiều ngăn',
-      price: 43.48,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-      sale: true,
-    },
-    {
-      id: 3,
-      name: 'Nón họa tiết chéo',
-      price: 60.9,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 4,
-      name: 'Boot cổ ngắn',
-      price: 98.49,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-      sale: true,
-    },
-    {
-      id: 5,
-      name: 'Áo thun túi phối',
-      price: 49.66,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-    {
-      id: 6,
-      name: 'Khăn choàng basic',
-      price: 26.28,
-      img: 'https://i.pinimg.com/736x/84/07/b6/8407b6533a6efa71002985a412701162.jpg',
-    },
-  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resProduct = await requestAPI({
+        method: "GET",
+        url: "/products/list"
+      });
+
+      const resCategory = await requestAPI({
+        method: "GET",
+        url: "/categories/list"
+      });
+
+      if (resProduct) setProducts(resProduct.data.data);
+      if (resCategory) setCategories(resCategory.data.data);
+
+      console.log("categories:", resCategory.data);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       {/* Breadcrumb */}
@@ -107,7 +53,6 @@ const Product = () => {
                     placeholder='Tìm kiếm...'
                     className='search-input'
                   />
-                  <i className='bi bi-search search-icon'></i>{' '}
                   {/* Sử dụng bootstrap icons hoặc emoji */}
                   <span className='search-emoji'><FaSearch/></span>
                 </div>
@@ -120,13 +65,11 @@ const Product = () => {
                   <Accordion.Header>DANH MỤC</Accordion.Header>
                   <Accordion.Body>
                     <ul className='filter-list'>
-                      <li>Nam (20)</li>
-                      <li>Nữ (20)</li>
-                      <li>Túi xách (20)</li>
-                      <li>Quần áo (20)</li>
-                      <li>Giày dép (20)</li>
-                      <li>Phụ kiện (20)</li>
-                      <li>Trẻ em (20)</li>
+                      {categories.map((c) => (
+                        <li key={c.id}>
+                          {c.name}
+                        </li>
+                      ))}
                     </ul>
                   </Accordion.Body>
                 </Accordion.Item>
@@ -223,7 +166,9 @@ const Product = () => {
                   <Link to='/detailShop' className='text-decoration-none text-black'>
                     <div className='product-card text-center position-relative'>
                       <div className='product-img mb-3 overflow-hidden position-relative'>
-                        <img src={item.img} alt={item.name} className='img-fluid w-100' />
+                        <img src={item.image} alt={item.name} className='img-fluid w-100' 
+                        style={{width: "300px", height: "300px", objectFit: 'cover'}} 
+                        />
                         <div className='product-hover-overlay'>
                           <FaShoppingCart />
                         </div>

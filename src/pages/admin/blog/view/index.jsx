@@ -86,6 +86,7 @@ const BlogDetail = () => {
                                 <FaArrowLeft className="me-2" /> Trở lại danh sách
                             </Button>
                         </div>
+                        
                     </div>
                 </Col>
             </Row>
