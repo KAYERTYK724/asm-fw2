@@ -14,7 +14,7 @@ class ProductController {
             }
 
             const products = await ProductModel.findAll({
-                where: condition, // 👈 thêm dòng này
+                where: condition, //  thêm dòng này
                 include: [
                     {
                         model: CategoryModel,
