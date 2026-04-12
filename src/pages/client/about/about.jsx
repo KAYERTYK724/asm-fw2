@@ -11,7 +11,7 @@ const About = () => {
         <div className="overlay">
           <h1>MENDOVER FASHION</h1>
           <p>Phong cách của bạn - Cá tính của bạn</p>
-          <Button variant="light">Khám phá bộ sưu tập</Button>
+          <Button >Khám phá bộ sưu tập</Button>
         </div>
       </div>
 
@@ -66,21 +66,30 @@ const About = () => {
 
           <Col md={4}>
             <div className="value-box">
-              <h4>👕 Chất lượng</h4>
+              <h4>
+                <i className="bi bi-tshirt me-2"></i>
+                Chất lượng
+              </h4>
               <p>Vải cao cấp, đường may chắc chắn</p>
             </div>
           </Col>
 
           <Col md={4}>
             <div className="value-box">
-              <h4>🔥 Xu hướng</h4>
+              <h4>
+                <i className="bi bi-fire me-2"></i>
+                Xu hướng
+              </h4>
               <p>Thiết kế luôn cập nhật trend mới</p>
             </div>
           </Col>
 
           <Col md={4}>
             <div className="value-box">
-              <h4>🚚 Giao hàng</h4>
+              <h4>
+                <i className="bi bi-truck me-2"></i>
+                Giao hàng
+              </h4>
               <p>Ship toàn quốc nhanh chóng</p>
             </div>
           </Col>

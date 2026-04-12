@@ -268,3 +268,42 @@
   color: #e74c3c;
   margin-top: 20px;
 }
+/* ===== FIX PRODUCT GRID CHUẨN ===== */
+
+.product-card {
+  background: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* KHUNG ẢNH CỐ ĐỊNH */
+.product-img {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+/* ẢNH KHÔNG MÉO */
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* TEXT KHÔNG LỆCH */
+.product-card h6 {
+  font-size: 14px;
+  margin-top: 10px;
+  min-height: 40px;
+}
+
+.product-card p {
+  margin: 5px 0 0;
+}
+
+/* GRID ĐỀU */
+.product-section .col-lg-3 {
+  display: flex;
+}
