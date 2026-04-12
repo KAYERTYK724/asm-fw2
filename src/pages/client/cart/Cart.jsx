@@ -11,7 +11,7 @@ const Cart = () => {
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  // ✅ check login
+  //  check login
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -21,7 +21,7 @@ const Cart = () => {
     }
   }, []);
 
-  // ✅ load cart
+  //  load cart
   const fetchCart = async () => {
     try {
       if (!user) return;
@@ -52,7 +52,7 @@ const Cart = () => {
     formState: { errors },
   } = useForm();
 
-  // ✅ update số lượng
+  // update số lượng
   const updateQty = async (id, value) => {
     if (isNaN(value) || value < 1) return;
 
@@ -72,12 +72,12 @@ const Cart = () => {
     }
   };
 
-  // ✅ xoá sản phẩm
+  // xoá sản phẩm
   const removeItem = async (id) => {
     try {
       await requestAPI({
         method: 'DELETE',
-        url: `/orders/cart/${id}`, // ✅ FIX API
+        url: `/orders/cart/${id}`, //  FIX API
       });
 
       setItems((prev) => prev.filter((i) => i.id !== id));
@@ -86,7 +86,7 @@ const Cart = () => {
     }
   };
 
-  // ✅ tính tổng tiền (anti crash)
+  // tính tổng tiền (anti crash)
   const subtotal = items.reduce((sum, i) => sum + (i.product?.price || 0) * i.quantity, 0);
 
   const onApplyCoupon = (data) => {

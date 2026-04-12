@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
-import { FaShoppingCart } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
 import './style.css';
 
@@ -10,6 +9,10 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // ✅ COMMENT STATE
+  const [comments, setComments] = useState([]);
+  const [content, setContent] = useState('');
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -30,6 +33,26 @@ const ProductDetails = () => {
     };
 
     fetchDetailProduct();
+  }, [id]);
+
+  // ✅ load comment
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await requestAPI({
+          method: 'GET',
+          url: `/comments/product/${id}`,
+        });
+
+        console.log("DATA COMMENT:", res.data);
+
+        setComments(res.data.data || []);
+      } catch (error) {
+        console.log('Lỗi load comment:', error);
+      }
+    };
+
+    fetchComments();
   }, [id]);
 
   // ✅ format tiền
@@ -62,13 +85,12 @@ const ProductDetails = () => {
     }
   }, [product]);
 
-  // ✅ add to cart chuẩn
+  // ✅ add to cart
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem('token');
       const user = JSON.parse(localStorage.getItem('user'));
 
-      // ❌ chưa login
       if (!token || !user) {
         alert('Vui lòng đăng nhập để thêm vào giỏ hàng!');
         navigate('/login');
@@ -84,9 +106,9 @@ const ProductDetails = () => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          user_id: user.id, // ✅ BẮT BUỘC
+          user_id: user.id,
           product_id: product.id,
-          quantity: Number(quantity) || 1, // ✅ ép số
+          quantity: Number(quantity) || 1,
         },
       });
 
@@ -106,14 +128,59 @@ const ProductDetails = () => {
     }
   };
 
-  // ❌ chưa load xong
+  // ✅ thêm comment
+  const handleAddComment = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!token || !user) {
+        alert('Vui lòng đăng nhập để bình luận!');
+        navigate('/login');
+        return;
+      }
+
+      if (!content.trim()) {
+        alert('Vui lòng nhập nội dung!');
+        return;
+      }
+
+      await requestAPI({
+        method: 'POST',
+        url: '/comments/add',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          content,
+          product_id: Number(id), // FIX chắc chắn
+          user_id: user.id,
+        },
+      });
+
+      alert('Bình luận thành công!');
+      setContent('');
+
+      // reload comment
+      const res = await requestAPI({
+        method: 'GET',
+        url: `/comments/product/${id}`,
+      });
+
+      setComments(res.data.data || []);
+
+    } catch (error) {
+      console.log(error);
+      alert('❌ Gửi comment thất bại!');
+    }
+  };
+
   if (!product) {
     return <p className='text-center mt-5'>Đang tải sản phẩm...</p>;
   }
 
   return (
     <section className='shop-details'>
-      {/* Breadcrumb */}
       <section className='breadcrumb-section-details'>
         <Row className='m-0'>
           <Col lg={12} className='d-flex justify-content-center'>
@@ -162,27 +229,16 @@ const ProductDetails = () => {
                 DANH MỤC: <span>{product.category?.name}</span>
               </div>
 
-              {/* QUANTITY + CART */}
               <div className='cart__action d-flex justify-content-center gap-3 align-items-center mb-4'>
                 <div className='quantity-control'>
-                  <input
-                    type='text'
-                    value={quantity}
-                    readOnly
-                    className='qty-input rounded-0'
-                  />
+                  <input type='text' value={quantity} readOnly className='qty-input rounded-0' />
                   <div className='qty-btns'>
                     <button onClick={() => setQuantity(quantity + 1)}>+</button>
                     <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
                   </div>
                 </div>
 
-                <Button
-                  variant='dark'
-                  className='px-5 text-uppercase rounded-0'
-                  onClick={handleAddToCart}
-                  disabled={loading}
-                >
+                <Button variant='dark' onClick={handleAddToCart} disabled={loading}>
                   {loading ? 'Đang thêm...' : 'Thêm vào giỏ hàng'}
                 </Button>
               </div>
@@ -190,35 +246,56 @@ const ProductDetails = () => {
           </Col>
         </Row>
 
-        {/* Tabs Thông tin bổ sung */}
+        {/* TABS */}
         <Row className='mt-5'>
           <Col lg={12}>
             <Tab.Container defaultActiveKey='desc'>
-              <Nav
-                variant='tabs'
-                className='justify-content-center border-0 mb-5 custom-product-tabs'
-              >
+              <Nav className='justify-content-center border-0 mb-5 custom-product-tabs'>
                 <Nav.Item>
-                  <Nav.Link eventKey='desc' className='border-0'>
-                    Mô tả
-                  </Nav.Link>
+                  <Nav.Link eventKey='desc'>Mô tả</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='review' className='border-0'>
-                    Khách hàng xem trước (5)
+                  <Nav.Link eventKey='review'>
+                    Bình luận ({comments.length})
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
-              <Tab.Content className='product__details__tab__content'>
+
+              <Tab.Content>
                 <Tab.Pane eventKey='desc'>
-                  <div className='product__details__tab__desc'
-                    dangerouslySetInnerHTML={{ __html: product.description }}
-                  >
-                  </div>
+                  <div dangerouslySetInnerHTML={{ __html: product.description }} />
                 </Tab.Pane>
+
                 <Tab.Pane eventKey='review'>
-                  <div className='product__details__tab__desc text-center'>
-                    <p>Nội dung đánh giá của khách hàng đang được tải...</p>
+                  <div>
+
+                    {/* LIST */}
+                    {comments && comments.length > 0 ? (
+                      comments.map((item) => (
+                        <div key={item.id} className='border p-3 mb-2'>
+                          <strong>{item.user?.fullname || "Ẩn danh"}</strong>
+                          <p className='mb-0'>{item.content || "Không có nội dung"}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className='text-center'>Chưa có bình luận</p>
+                    )}
+
+                    {/* FORM */}
+                    <div className='mt-3'>
+                      <textarea
+                        className='form-control mb-2'
+                        placeholder='Nhập bình luận...'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                      />
+                      <div className='text-end'>
+                        <Button variant='dark' onClick={handleAddComment}>
+                          Gửi bình luận
+                        </Button>
+                      </div>
+                    </div>
+
                   </div>
                 </Tab.Pane>
               </Tab.Content>
@@ -245,18 +322,9 @@ const ProductDetails = () => {
                       className='img-fluid'
                       style={{ height: '300px', objectFit: 'cover' }}
                     />
-
                     <h6 className='fw-bold mt-2'>{item.name}</h6>
-
                     <p className='text-danger fw-bold'>
-                      {item.sale_price > 0 ? (
-                        <>
-                          {formatVND(item.sale_price)}{' '}
-                          <span className='old-price'>{formatVND(item.price)}</span>
-                        </>
-                      ) : (
-                        formatVND(item.price)
-                      )}
+                      {formatVND(item.price)}
                     </p>
                   </div>
                 </Col>
