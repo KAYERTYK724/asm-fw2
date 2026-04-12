@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // ✅ load sản phẩm
+  // load sản phẩm
   useEffect(() => {
     const fetchDetailProduct = async () => {
       try {
@@ -35,7 +35,7 @@ const ProductDetails = () => {
     fetchDetailProduct();
   }, [id]);
 
-  // ✅ load comment
+  //  load comment
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -55,7 +55,7 @@ const ProductDetails = () => {
     fetchComments();
   }, [id]);
 
-  // ✅ format tiền
+  // format tiền
   const formatVND = (price) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -63,7 +63,7 @@ const ProductDetails = () => {
     }).format(price);
   };
 
-  // ✅ load sản phẩm liên quan
+  // load sản phẩm liên quan
   useEffect(() => {
     if (product?.category_id) {
       const fetchRelated = async () => {
@@ -85,7 +85,7 @@ const ProductDetails = () => {
     }
   }, [product]);
 
-  // ✅ add to cart
+  // add to cart
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -112,7 +112,7 @@ const ProductDetails = () => {
         },
       });
 
-      alert('✅ Thêm vào giỏ hàng thành công!');
+      alert('Thêm vào giỏ hàng thành công!');
       navigate('/cart');
     } catch (error) {
       console.log('Lỗi add to cart:', error);
@@ -121,14 +121,14 @@ const ProductDetails = () => {
         alert('Phiên đăng nhập hết hạn!');
         navigate('/login');
       } else {
-        alert('❌ Thêm thất bại!');
+        alert('Thêm thất bại!');
       }
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ thêm comment
+  // thêm bình luận dòng này nhé hiếu nè
   const handleAddComment = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -171,7 +171,7 @@ const ProductDetails = () => {
 
     } catch (error) {
       console.log(error);
-      alert('❌ Gửi comment thất bại!');
+      alert('Gửi comment thất bại!');
     }
   };
 
