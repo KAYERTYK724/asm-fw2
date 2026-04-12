@@ -13,8 +13,6 @@ const ProductDetails = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // ✅ load sản phẩm
   useEffect(() => {
     const fetchDetailProduct = async () => {
       try {
@@ -32,15 +30,12 @@ const ProductDetails = () => {
     fetchDetailProduct();
   }, [id]);
 
-  // ✅ format tiền
   const formatVND = (price) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND',
     }).format(price);
   };
-
-  // ✅ load sản phẩm liên quan
   useEffect(() => {
     if (product?.category_id) {
       const fetchRelated = async () => {
