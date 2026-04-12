@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
@@ -233,32 +233,45 @@ const ProductDetails = () => {
           <Row>
             {relatedProducts.length > 0 ? (
               relatedProducts.map((item) => (
-                <Col lg={3} md={6} key={item.id}>
-                  <div
-                    className='product-card text-center'
-                    onClick={() => navigate(`/product/${item.id}`)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className='img-fluid'
-                      style={{ height: '300px', objectFit: 'cover' }}
-                    />
+                <Col lg={3} md={6} sm={6} key={item.id} className='mb-4'>
+                  <Link to={`/detailShop/${item.id}`} className='text-decoration-none text-black'>
+                    <div className='product-card text-center position-relative'>
+                      <div className='product-img mb-3 overflow-hidden position-relative'>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className='img-fluid w-100'
+                          style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+                        />
+                        <div className='product-hover-overlay'>
+                          <FaShoppingCart />
+                        </div>
+                      </div>
+                      <h6 className='fw-bold'>{item.name}</h6>
+                      <div>
+                        {item.sale_price && item.sale_price > 0 ? (
+                          <>
+                            {/* Giá giảm */}
+                            <p className='text-danger fw-bold mb-1'>
+                              {formatVND(item.sale_price)}
+                            </p>
 
-                    <h6 className='fw-bold mt-2'>{item.name}</h6>
-
-                    <p className='text-danger fw-bold'>
-                      {item.sale_price > 0 ? (
-                        <>
-                          {formatVND(item.sale_price)}{' '}
-                          <span className='old-price'>{formatVND(item.price)}</span>
-                        </>
-                      ) : (
-                        formatVND(item.price)
-                      )}
-                    </p>
-                  </div>
+                            {/* Giá gốc */}
+                            <p
+                              className='text-muted'
+                              style={{ textDecoration: 'line-through', fontSize: '14px' }}
+                            >
+                              {formatVND(item.price)}
+                            </p>
+                          </>
+                        ) : (
+                          <p className='text-danger fw-bold'>
+                            {formatVND(item.price)}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
                 </Col>
               ))
             ) : (

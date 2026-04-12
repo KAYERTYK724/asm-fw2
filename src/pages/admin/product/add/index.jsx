@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { FaSave, FaBoxOpen } from "react-icons/fa";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../style.css'; 
 import requestAPI from "../../../../RequestAPI"; 
 
@@ -14,7 +15,7 @@ const AddProduct = () => {
             description: ""
         }
     });
-
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -40,29 +41,30 @@ const AddProduct = () => {
     }, []);
 
     const onRegister = async (data) => {
-    try {
-        const newProduct = {
-            name: data.name,
-            image: data.image, // map lại
-            price: Number(data.price),
-            sale_price: Number(data.sale_price) || 0,
-            category_id: Number(data.category), // quan trọng
-            status: Number(data.status),
-            description: data.description
-        };
+        try {
+            const newProduct = {
+                name: data.name,
+                image: data.image, // map lại
+                price: Number(data.price),
+                sale_price: Number(data.sale_price) || 0,
+                category_id: Number(data.category), // quan trọng
+                status: Number(data.status),
+                description: data.description
+            };
 
-        const res = await requestAPI({
-            method: "POST",
-            url: "/products/add",
-            data: newProduct
-        });
+            const res = await requestAPI({
+                method: "POST",
+                url: "/products/add",
+                data: newProduct
+            });
 
-        console.log("Thêm thành công:", res.data);
-        alert("Thêm sản phẩm thành công!");
-    } catch (error) {
-        console.log("Lỗi:", error);
-    }
-};
+            console.log("Thêm thành công:", res.data);
+            alert("Thêm sản phẩm thành công!");
+            navigate('/admin/productAdmin');
+        } catch (error) {
+            console.log("Lỗi:", error);
+        }
+    };
     
     return (
         <Container fluid className="pt-4 px-4">

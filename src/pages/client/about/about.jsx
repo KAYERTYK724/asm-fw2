@@ -9,7 +9,7 @@ const About = () => {
       {/* HERO */}
       <div className="about-hero">
         <div className="overlay">
-          <h1>MENDOVER FASHION</h1>
+          <h1>MALE FASHION</h1>
           <p>Phong cách của bạn - Cá tính của bạn</p>
           <Button >Khám phá bộ sưu tập</Button>
         </div>
@@ -27,7 +27,7 @@ const About = () => {
             />
           </Col>
           <Col md={6}>
-            <h2>Về Mendover</h2>
+            <h2>Về Male Fashion</h2>
             <p>
               Mendover là thương hiệu thời trang chuyên cung cấp quần áo, áo thun,
               hoodie và phụ kiện dành cho giới trẻ yêu thích phong cách hiện đại.

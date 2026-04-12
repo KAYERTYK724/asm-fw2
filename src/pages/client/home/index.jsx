@@ -5,18 +5,32 @@ import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight, FaFacebookF, FaTwitter, FaInstagram, FaShoppingCart } from 'react-icons/fa';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import requestAPI from '../../../RequestAPI';
 
 const PageHome = () => {
   const [products, setProducts] = useState([]);
 
   //Gọi API Node.js
   useEffect(() => {
-    axios.get("http://localhost:4001/products/list")
-      .then(res => {
-        setProducts(res.data.data);
-      })
-      .catch(err => console.log(err));
+    const fetchProduct = async () => {
+      const resProduct = await requestAPI({
+        method: 'GET',
+        url: '/products/list',
+      });
+
+      if (resProduct) setProducts(resProduct.data.data);
+    };
+
+    fetchProduct();
   }, []);
+
+  const formatVND = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    }).format(price);
+  };
+
 
   return (
     <>
@@ -105,17 +119,43 @@ const PageHome = () => {
             {products.map((p) => (
               <Col lg={3} md={6} sm={6} key={p.id} className='mb-4'>
                 <Link to={`/detailShop/${p.id}`} className='text-decoration-none text-black'>
-                  <div className='product-card text-center position-relative'>
-                    <div className='product-img mb-3 overflow-hidden position-relative'>
-                      <img src={p.image} alt={p.name} className='img-fluid w-100' />
-                      <div className='product-hover-overlay'>
-                        <FaShoppingCart />
+                    <div className='product-card text-center position-relative'>
+                      <div className='product-img mb-3 overflow-hidden position-relative'>
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className='img-fluid w-100'
+                          style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+                        />
+                        <div className='product-hover-overlay'>
+                          <FaShoppingCart />
+                        </div>
+                      </div>
+                      <h6 className='fw-bold'>{p.name}</h6>
+                      <div>
+                        {p.sale_price && p.sale_price > 0 ? (
+                          <>
+                            {/* Giá giảm */}
+                            <p className='text-danger fw-bold mb-1'>
+                              {formatVND(p.sale_price)}
+                            </p>
+
+                            {/* Giá gốc */}
+                            <p
+                              className='text-muted'
+                              style={{ textDecoration: 'line-through', fontSize: '14px' }}
+                            >
+                              {formatVND(p.price)}
+                            </p>
+                          </>
+                        ) : (
+                          <p className='text-danger fw-bold'>
+                            {formatVND(p.price)}
+                          </p>
+                        )}
                       </div>
                     </div>
-                    <h6 className='fw-bold'>{p.name}</h6>
-                    <p className='text-danger fw-bold'>{p.price}</p>
-                  </div>
-                </Link>
+                  </Link>
               </Col>
             ))}
           </Row>

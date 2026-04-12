@@ -22,7 +22,7 @@ const CategoryListAdmin = () => {
     if (!window.confirm('Bạn có chắc muốn xóa danh mục này?')) return;
     const res = await requestAPI({ method: 'DELETE', url: `/categories/${id}` });
     if (res) {
-      setCategoriesData(prev => prev.filter(c => c.id !== id));
+      setCategoriesData((prev) => prev.filter((c) => c.id !== id));
     }
   };
 
@@ -30,7 +30,7 @@ const CategoryListAdmin = () => {
     fetchCategories();
   }, []);
 
-  if (loading) return <div className="text-center text-white py-5">Đang tải...</div>;
+  if (loading) return <div className='text-center text-white py-5'>Đang tải...</div>;
 
   return (
     <Container fluid className='pt-4 px-4'>
@@ -43,7 +43,11 @@ const CategoryListAdmin = () => {
         </div>
 
         <div className='table-responsive'>
-          <Table hover bordered className='text-start align-middle mb-0 custom-table table-dark'>
+          <Table
+            hover
+            bordered
+            className='text-start align-middle mb-0 custom-table table-dark'
+          >
             <thead>
               <tr>
                 <th scope='col'>#</th>
@@ -55,7 +59,9 @@ const CategoryListAdmin = () => {
             <tbody>
               {categoriesData.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className='text-center text-white'>Chưa có danh mục nào.</td>
+                  <td colSpan={4} className='text-center text-white'>
+                    Chưa có danh mục nào.
+                  </td>
                 </tr>
               ) : (
                 categoriesData.map((c, index) => (
@@ -63,7 +69,9 @@ const CategoryListAdmin = () => {
                     <td>{index + 1}</td>
                     <td className='text-white'>{c.name}</td>
                     <td>
-                      <Badge bg="success" className="rounded-pill">Hiển thị</Badge>
+                      <Badge bg='success' className='rounded-pill'>
+                        Hiển thị
+                      </Badge>
                     </td>
                     <td>
                       <div className='d-flex gap-2'>
