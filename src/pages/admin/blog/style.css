@@ -1,0 +1,109 @@
+/* Đảm bảo Container bao quanh có màu nền tối của hệ thống */
+.bg-secondary {
+    background-color: #191C24 !important;
+}
+
+.custom-table {
+    color: #6C7293 !important;
+    background-color: transparent !important;
+}
+
+/* Ép tất cả các ô td và th có màu nền tối và viền đen */
+.custom-table thead th, 
+.custom-table tbody td {
+    background-color: #191C24 !important;
+    border-color: #000000 !important; /* Viền đen giữa các ô */
+    padding: 15px 10px;
+}
+
+/* Hiệu ứng Hover: Đổi sang màu đen tuyền để làm nổi bật dòng */
+.custom-table.table-hover tbody tr:hover td {
+    background-color: #000000 !important; /* Nền đen sâu khi hover giống ảnh mẫu */
+    color: #ffffff !important;
+    transition: 0.3s ease;
+}
+
+/* Xử lý viền cho table-bordered */
+.table-bordered {
+    border: 1px solid #000000 !important;
+}
+
+/* Tiêu đề bảng */
+.custom-table thead th {
+    color: #ffffff !important;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* Hiển thị tối đa 2 dòng văn bản, còn lại hiện dấu ... */
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Nút Thêm mới (Secondary - Màu xám tối) */
+.btn-success {
+    background-color: #00892c !important;
+    border: none !important;
+    color: #fff !important;
+}
+.btn-success:hover {
+    background-color: #157347 !important;
+}
+
+/* Nút Xem (Info - Màu xanh cyan nhạt) */
+.btn-info {
+    background-color: #17a2b8 !important;
+    border: none !important;
+    color: #fff !important;
+}
+.btn-info:hover {
+    background-color: #138496 !important;
+}
+
+/* Nút Sửa (Warning - Màu cam vàng) */
+.btn-warning {
+    background-color: #ffc107 !important;
+    border: none !important;
+    color: #000 !important; /* Chữ đen cho dễ đọc trên nền vàng */
+}
+.btn-warning:hover {
+    background-color: #e0a800 !important;
+}
+
+/* Nút Xóa (Danger - Màu đỏ tươi) */
+.btn-danger {
+    background-color: #dc3545 !important;
+    border: none !important;
+    color: #fff !important;
+}
+.btn-danger:hover {
+    background-color: #c82333 !important;
+}
+
+/* Đảm bảo các nút rounded-pill (bo tròn) trông mượt mà */
+.rounded-pill {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    font-weight: 500;
+}
+
+.bg-dark {
+    background-color: #000000 !important;
+}
+
+.form-control:focus {
+    background-color: #000000 !important;
+    color: white;
+    border: 1px solid #EB1616 !important; /* Viền đỏ khi click vào ô */
+    box-shadow: none;
+}
+
+label {
+    font-size: 15px;
+    margin-bottom: 8px;
+}

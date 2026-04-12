@@ -1,0 +1,148 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* BACKGROUND */
+.container-login100 {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a7aabf, #3b343b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.wrap-login100 {
+  width: 900px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  padding: 60px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LEFT IMAGE */
+.login100-pic {
+  width: 45%;
+}
+
+.login100-pic img {
+  width: 100%;
+}
+
+/* FORM */
+.login100-form {
+  width: 45%;
+  text-align: center;
+}
+
+/* TITLE */
+.login100-form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  display: block;
+  margin-bottom: 30px;
+}
+
+/* INPUT WRAP */
+.wrap-input100 {
+  position: relative;
+  margin-bottom: 25px; /* tăng để chứa lỗi */
+}
+
+/* INPUT */
+.input100 {
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  background: #f0f0f0;
+  padding: 0 45px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* FOCUS INPUT */
+.input100:focus {
+  border: 1px solid #57b846;
+  background: #fff;
+}
+
+/* INPUT ERROR */
+.input-error {
+  border: 1px solid #ff4d4f !important;
+  background: #fff0f0;
+}
+
+/* ERROR TEXT */
+.error-text {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-left: 15px;
+  text-align: left;
+  display: block;
+}
+
+/* ICON */
+.symbol-input100 {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* BUTTON */
+.container-login100-form-btn {
+  margin-top: 20px;
+}
+
+.login100-form-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  background: #57b846;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login100-form-btn:hover {
+  background: #45a036;
+}
+
+/* TEXT */
+.text-center {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.txt2 {
+  color: #666;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.txt2:hover {
+  color: #57b846;
+}
+
+/* SPACING */
+.p-t-12 {
+  margin-top: 10px;
+}
+
+.p-t-136 {
+  margin-top: 80px;
+}

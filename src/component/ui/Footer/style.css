@@ -1,0 +1,86 @@
+.footer {
+  background: #111;
+  color: #b7b7b7;
+  padding-top: 70px;
+}
+
+.footer .logo {
+  color: #fff;
+  font-weight: 700;
+}
+
+.footer .logo span {
+  color: red;
+}
+
+.footer-about p {
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 15px 0;
+}
+
+.payment img {
+  max-width: 100%;
+}
+
+/* TITLE */
+.footer-widget h6 {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* LIST */
+.footer-widget ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer-widget ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-widget ul li:hover {
+  color: #fff;
+}
+
+/* NEWSLETTER */
+.newsletter-form {
+  position: relative;
+  margin-top: 20px;
+}
+
+.newsletter-form input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #444;
+  padding: 10px 40px 10px 0;
+  color: #fff;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.newsletter-form button {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* BOTTOM */
+.footer-bottom {
+  border-top: 1px solid #222;
+  margin-top: 40px;
+  padding: 20px 0;
+  font-size: 14px;
+}

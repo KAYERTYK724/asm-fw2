@@ -1,0 +1,220 @@
+/* Tổng quan */
+.blog-details-wrapper {
+    background-color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.spad { 
+    padding: 100px 0; 
+}
+
+/* Hero Section */
+.blog-hero {
+    height: 450px;
+    background: #f3f2ee;
+    padding: 80px 0;
+}
+
+.blog__hero__text h2 {
+    color: #111111;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 48px;
+    margin-bottom: 20px;
+}
+
+.blog__hero__text ul li {
+    font-size: 16px;
+    color: #131313;
+    position: relative;
+}
+
+.blog__hero__text ul li:not(:last-child):after {
+    content: "|";
+    padding: 0 10px;
+    color: #b7b7b7;
+}
+
+/* Social Share */
+.blog__details__share {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    text-align: center;
+}
+
+.blog__details__share span {
+    display: block;
+    font-size: 14px;
+    color: #111111;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.blog__details__share ul { 
+    list-style: none; 
+    padding: 0; 
+}
+
+.blog__details__share ul li { 
+    margin-bottom: 15px; 
+}
+
+.blog__details__share ul li a { 
+    color: #e6e6e6; 
+    font-size: 20px; 
+}
+
+.blog__details__share .facebook{
+    background: #3b5998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+.blog__details__share .twitter{
+    background: #1da1f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+.blog__details__share .youtube{
+    background: #ff0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+.blog__details__share .linkedin{
+    background: #0077b5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+/* Nội dung bài viết */
+.blog__details__pic img {
+    margin-top: -260px;
+    width: 100%;
+}
+
+.blog__details__content { position: relative; }
+
+.blog__details__text p {
+    font-size: 16px;
+    line-height: 28px;
+    color: #3d3d3d;
+    margin-bottom: 25px;
+}
+
+/* Khối trích dẫn (Quote) */
+.blog__details__quote {
+    background: #f3f2ee;
+    padding: 40px 50px;
+    border-left: 4px solid #e64444;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.quote-icon {
+    position: absolute;
+    top: 275px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #e64444;
+}
+
+.blog__details__quote p {
+    font-size: 18px;
+    color: #111111;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 30px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.blog__details__quote h6 {
+    color: #e64444;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right; 
+    margin-top: 15px;
+    display: block;
+}
+
+/* Author & Tags */
+.blog__details__author__pic img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 3px solid #f3f2ee;
+}
+
+.blog__details__tags a {
+    color: #3d3d3d;
+    font-size: 20px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+/* Form inputs */
+.custom-input {
+    border-radius: 0;
+    border: 1px solid #e1e1e1;
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+.custom-input:focus {
+    box-shadow: none;
+    border-color: #111111;
+}
+
+.site-btn {
+    border-radius: 0;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Responsive cho phần chia sẻ */
+@media (max-width: 1200px) {
+    .blog__details__share {
+        position: static;
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .blog__details__share ul { 
+        display: flex; margin: 0 0 0 20px; 
+    }
+
+    .blog__details__share ul li { 
+        margin: 0 15px 0 0; 
+    }
+}

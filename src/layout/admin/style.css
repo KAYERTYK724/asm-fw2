@@ -1,0 +1,23 @@
+body {
+    --primary: #EB1616;   /* Màu đỏ đặc trưng DarkPan */
+    --secondary: #191C24; /* Màu nền Card/Sidebar */
+    background-color: #000000;
+    color: #6C7293;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+/* Khung nội dung chính bên phải */
+.content {
+    background: #000000;
+    margin-left: 250px;
+    min-height: 100vh;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Trạng thái khi Sidebar bị ẩn */
+.sidebar-toggled .content {
+    margin-left: 0;
+}

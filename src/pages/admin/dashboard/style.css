@@ -1,0 +1,63 @@
+/* Dashboard.css */
+.bg-secondary {
+    background-color: var(--secondary) !important;
+}
+
+/* Đảm bảo biểu đồ có màu nền đen sâu giống mẫu */
+canvas {
+    background-color: transparent;
+}
+
+/* Hiệu ứng hover cho bảng */
+.custom-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Khoảng cách cho các biểu đồ */
+.h-100 {
+    height: 100% !important;
+}
+
+.bg-secondary {
+    background-color: var(--secondary) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+/* Thẻ thống kê */
+.box-card {
+    transition: 0.3s;
+}
+
+.box-card:hover {
+    background: rgba(25, 28, 36, 0.8) !important;
+}
+
+/* Tùy chỉnh Table để giống mẫu 100% */
+.custom-table {
+    background-color: transparent !important;
+    color: var(--light);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #c01212;
+}
+
+/* Footer style */
+.rounded-top {
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}

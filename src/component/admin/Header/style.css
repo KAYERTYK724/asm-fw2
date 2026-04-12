@@ -1,0 +1,27 @@
+/* HeaderAdmin.css */
+.navbar.bg-secondary {
+    background-color: var(--secondary) !important;
+}
+
+.sidebar-toggler {
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.sidebar-toggler:hover {
+    transform: scale(1.1);
+}
+
+.navbar .dropdown-menu {
+    background: var(--secondary);
+    border: 1px solid var(--dark);
+}
+
+.navbar .dropdown-item {
+    color: var(--light);
+}
+
+.navbar .dropdown-item:hover {
+    background: var(--dark);
+    color: var(--primary);
+}
