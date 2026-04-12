@@ -1,4 +1,4 @@
-
+/* eslint-disable no-unused-vars */
 import './style.css';
 import { Link } from 'react-router-dom';
 import { Container, Button, Row, Col, Card } from 'react-bootstrap';
