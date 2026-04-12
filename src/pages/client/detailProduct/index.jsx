@@ -101,7 +101,6 @@ const ProductDetails = () => {
     }
   };
 
-  // ❌ chưa load xong
   if (!product) {
     return <p className='text-center mt-5'>Đang tải sản phẩm...</p>;
   }
