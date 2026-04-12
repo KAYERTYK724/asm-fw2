@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Nav, Tab, Breadcrumb, Button } from 'react-bootstrap';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
 import './style.css';
 
@@ -59,7 +59,6 @@ const ProductDetails = () => {
     }
   }, [product]);
 
-  // ✅ load comment
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -79,13 +78,11 @@ const ProductDetails = () => {
     fetchComments();
   }, [id]);
 
-  // ✅ add to cart chuẩn
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem('token');
       const user = JSON.parse(localStorage.getItem('user'));
 
-      // ❌ chưa login
       if (!token || !user) {
         alert('Vui lòng đăng nhập để thêm vào giỏ hàng!');
         navigate('/login');
@@ -101,9 +98,9 @@ const ProductDetails = () => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          user_id: user.id, // ✅ BẮT BUỘC
+          user_id: user.id,
           product_id: product.id,
-          quantity: Number(quantity) || 1, // ✅ ép số
+          quantity: Number(quantity) || 1, 
         },
       });
 
@@ -123,7 +120,6 @@ const ProductDetails = () => {
     }
   };
 
-  // ✅ thêm comment
   const handleAddComment = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -148,7 +144,7 @@ const ProductDetails = () => {
         },
         data: {
           content,
-          product_id: Number(id), // FIX chắc chắn
+          product_id: Number(id),
           user_id: user.id,
         },
       });
@@ -156,7 +152,6 @@ const ProductDetails = () => {
       alert('Bình luận thành công!');
       setContent('');
 
-      // reload comment
       const res = await requestAPI({
         method: 'GET',
         url: `/comments/product/${id}`,
@@ -166,7 +161,7 @@ const ProductDetails = () => {
 
     } catch (error) {
       console.log(error);
-      alert('❌ Gửi comment thất bại!');
+      alert('Gửi comment thất bại!');
     }
   };
 
@@ -286,7 +281,8 @@ const ProductDetails = () => {
                     {comments && comments.length > 0 ? (
                       comments.map((item) => (
                         <div key={item.id} className='border p-3 mb-2'>
-                          <strong>{item.user?.fullname || "Ẩn danh"}</strong>
+
+                          <strong><FaUser className='me-2'/>{item.user?.fullname || "Ẩn danh"}</strong>
                           <p className='mb-0'>{item.content || "Không có nội dung"}</p>
                         </div>
                       ))
@@ -297,18 +293,17 @@ const ProductDetails = () => {
                     {/* FORM */}
                     <div className='mt-3'>
                       <textarea
-                        className='form-control mb-2'
+                        className='form-control mb-2 rounded-0'
                         placeholder='Nhập bình luận...'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                       />
                       <div className='text-end'>
-                        <Button variant='dark' onClick={handleAddComment}>
+                        <Button className='rounded-0' variant='dark' onClick={handleAddComment}>
                           Gửi bình luận
                         </Button>
                       </div>
                     </div>
-
                   </div>
                 </Tab.Pane>
               </Tab.Content>

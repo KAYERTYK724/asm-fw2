@@ -161,9 +161,95 @@ const PageHome = () => {
           </Row>
         </Container>
       </section>
-
       
-      {/* (các phần dưới giữ nguyên) */}
+      {/* DEAL */}
+      <section className='deal-section py-5'>
+        <Container>
+          <Row className='align-items-center'>
+            {/* LEFT TEXT */}
+            <Col md={3}>
+              <div className='deal-left'>
+                <p>Thời trang hot</p>
+                <h4>Bộ sưu tập giày</h4>
+                <p>Phụ kiện</p>
+              </div>
+            </Col>
+
+            {/* IMAGE */}
+            <Col md={5} className='text-center position-relative'>
+              <img
+                src='https://i.pinimg.com/736x/ac/cf/91/accf91f906df1c14efdc21d377eb94e9.jpg'
+                alt=''
+                className='deal-img'
+              />
+
+              {/* PRICE BADGE */}
+              <div className='price-badge'>
+                <span>Giảm còn</span>
+                <h5>$29.99</h5>
+              </div>
+            </Col>
+
+            {/* RIGHT CONTENT */}
+            <Col md={4}>
+              <div className='deal-content'>
+                <p className='deal-label'>ƯU ĐÃI TRONG TUẦN</p>
+                <h3>Túi đeo ngực nhiều ngăn màu đen</h3>
+
+                {/* COUNTDOWN */}
+                <div className='countdown'>
+                  <div>
+                    <h4>30</h4>
+                    <span>Ngày</span>
+                  </div>
+                  <div>
+                    <h4>01</h4>
+                    <span>Giờ</span>
+                  </div>
+                  <div>
+                    <h4>06</h4>
+                    <span>Phút</span>
+                  </div>
+                  <div>
+                    <h4>20</h4>
+                    <span>Giây</span>
+                  </div>
+                </div>
+
+                <Button variant='dark'>Mua ngay</Button>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* INSTAGRAM */}
+      <section className='instagram-section py-5'>
+        <Container>
+          <Row className='align-items-center'>
+            {/* GRID */}
+            <Col md={8}>
+              <div className='instagram-grid'>
+                <img src='https://i.pinimg.com/736x/9a/b1/2f/9ab12fd7e62ee1592c3ab8ada966e71e.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/a9/d2/02/a9d2021edbdf4e38d87da75db5af81dd.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/83/a2/42/83a24247c4520e1e13569c4299c7c039.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/fa/44/f2/fa44f27d2d155f094c45930be83ede04.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/5e/ba/f2/5ebaf2fbeac63d4850ba7226704fd789.jpg' alt=""/>
+                <img src='https://i.pinimg.com/736x/09/03/8c/09038ce2f04586e085df81e7d01e773b.jpg' alt=""/>
+              </div>
+            </Col>
+
+            {/* TEXT */}
+            <Col md={4}>
+              <div className='instagram-content'>
+                <h3>Instagram</h3>
+                <p>Theo dõi chúng tôi để cập nhật xu hướng thời trang mới nhất.</p>
+                <h5>#ThoiTrangNam</h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </>
   );
 };
