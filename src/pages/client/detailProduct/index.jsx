@@ -10,6 +10,8 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [content, setContent] = useState('');
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -57,6 +59,26 @@ const ProductDetails = () => {
     }
   }, [product]);
 
+  // ✅ load comment
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await requestAPI({
+          method: 'GET',
+          url: `/comments/product/${id}`,
+        });
+
+        console.log("DATA COMMENT:", res.data);
+
+        setComments(res.data.data || []);
+      } catch (error) {
+        console.log('Lỗi load comment:', error);
+      }
+    };
+
+    fetchComments();
+  }, [id]);
+
   // ✅ add to cart chuẩn
   const handleAddToCart = async () => {
     try {
@@ -98,6 +120,53 @@ const ProductDetails = () => {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ✅ thêm comment
+  const handleAddComment = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!token || !user) {
+        alert('Vui lòng đăng nhập để bình luận!');
+        navigate('/login');
+        return;
+      }
+
+      if (!content.trim()) {
+        alert('Vui lòng nhập nội dung!');
+        return;
+      }
+
+      await requestAPI({
+        method: 'POST',
+        url: '/comments/add',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          content,
+          product_id: Number(id), // FIX chắc chắn
+          user_id: user.id,
+        },
+      });
+
+      alert('Bình luận thành công!');
+      setContent('');
+
+      // reload comment
+      const res = await requestAPI({
+        method: 'GET',
+        url: `/comments/product/${id}`,
+      });
+
+      setComments(res.data.data || []);
+
+    } catch (error) {
+      console.log(error);
+      alert('❌ Gửi comment thất bại!');
     }
   };
 
@@ -198,8 +267,8 @@ const ProductDetails = () => {
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='review' className='border-0'>
-                    Khách hàng xem trước (5)
+                  <Nav.Link eventKey='review'>
+                    Bình luận ({comments.length})
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -211,8 +280,35 @@ const ProductDetails = () => {
                   </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey='review'>
-                  <div className='product__details__tab__desc text-center'>
-                    <p>Nội dung đánh giá của khách hàng đang được tải...</p>
+                  <div>
+
+                    {/* LIST */}
+                    {comments && comments.length > 0 ? (
+                      comments.map((item) => (
+                        <div key={item.id} className='border p-3 mb-2'>
+                          <strong>{item.user?.fullname || "Ẩn danh"}</strong>
+                          <p className='mb-0'>{item.content || "Không có nội dung"}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className='text-center'>Chưa có bình luận</p>
+                    )}
+
+                    {/* FORM */}
+                    <div className='mt-3'>
+                      <textarea
+                        className='form-control mb-2'
+                        placeholder='Nhập bình luận...'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                      />
+                      <div className='text-end'>
+                        <Button variant='dark' onClick={handleAddComment}>
+                          Gửi bình luận
+                        </Button>
+                      </div>
+                    </div>
+
                   </div>
                 </Tab.Pane>
               </Tab.Content>
