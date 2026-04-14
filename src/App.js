@@ -28,6 +28,7 @@ import ProductListAdmin from './pages/admin/product';
 import AddProduct from './pages/admin/product/add';
 import EditProduct from './pages/admin/product/edit';
 import ProductDetail from './pages/admin/product/view';
+import CommentAdmin from './pages/admin/comment/index';
 
 const App = () => {
   return (
@@ -39,7 +40,7 @@ const App = () => {
           <Route path='shop' element={<Product />} />
           <Route path='detailShop/:id' element={<ProductDetails />} />
           <Route path='blog' element={<Blog />} />
-          <Route path='detailBlog' element={<BlogDetails />} />
+          <Route path='detailBlog/:id' element={<BlogDetails />} />
           <Route path='contact' element={<Contact />} />
           <Route path='checkout' element={<Checkout />} />
           <Route path='cart' element={<Cart />} />
@@ -59,11 +60,13 @@ const App = () => {
           <Route path='/admin/viewProduct/:id' element={<ProductDetail />} />
           <Route path='blogAdmin' element={<BlogListAdmin />} />
           <Route path='addBlog' element={<AddBlog />} />
-          <Route path='viewBlog' element={<BlogDetail />} />
+          <Route path='editBlog/:id' element={<AddBlog />} />
+          <Route path='viewBlog/:id' element={<BlogDetail />} />
           <Route path='user' element={<UserListAdmin />} />
           <Route path='viewUser' element={<ViewUser />} />
           <Route path='orders' element={<OrderList />} />
           <Route path='orders/:id' element={<OrderDetail />} />
+          <Route path='comment' element={<CommentAdmin />} />
         </Route>
       </Routes>
     </>

@@ -65,7 +65,6 @@ const Header = () => {
               <div className='cart'>
                 <Link to='/cart' className='text-decoration-none text-black'>
                   <FaShoppingBag />
-                  <span className='count'>0</span>
                 </Link>
               </div>
               <div className='user-dropdown'>
