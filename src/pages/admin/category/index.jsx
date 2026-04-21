@@ -18,11 +18,26 @@ const CategoryListAdmin = () => {
     setLoading(false);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (category) => {
+    // ❗ chặn ở frontend
+    if (!category.canDelete) {
+      alert('Danh mục đang chứa sản phẩm hoặc đã có đơn hàng, không thể xóa!');
+      return;
+    }
+
     if (!window.confirm('Bạn có chắc muốn xóa danh mục này?')) return;
-    const res = await requestAPI({ method: 'DELETE', url: `/categories/${id}` });
-    if (res) {
-      setCategoriesData((prev) => prev.filter((c) => c.id !== id));
+
+    try {
+      await requestAPI({
+        method: 'DELETE',
+        url: `/categories/${category.id}`,
+      });
+
+      setCategoriesData((prev) => prev.filter((c) => c.id !== category.id));
+      alert('Xóa thành công');
+    } catch (error) {
+      const message = error.response?.data?.message || 'Xóa thất bại';
+      alert(message);
     }
   };
 
@@ -85,11 +100,16 @@ const CategoryListAdmin = () => {
                           <FaEdit />
                         </Button>
                         <Button
-                          size='sm'
-                          variant='danger'
-                          className='rounded-pill px-3'
-                          onClick={() => handleDelete(c.id)}
-                        >
+                            size='sm'
+                            variant='danger'
+                            className='rounded-pill px-3'
+                            title={
+                              !c.canDelete
+                                ? 'Danh mục đang chứa sản phẩm hoặc đã có đơn hàng'
+                                : ''
+                            }
+                            onClick={() => handleDelete(c)}
+                          >
                           <FaTrashAlt />
                         </Button>
                       </div>

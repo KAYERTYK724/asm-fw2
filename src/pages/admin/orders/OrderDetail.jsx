@@ -59,8 +59,8 @@ const OrderDetail = () => {
 
       <div className="row g-3">
         {/* THÔNG TIN KHÁCH */}
-        <div className="col-md-4">
-          <div className="order-card order-info">
+        <div className="col-md-4" >
+          <div className="order-card order-info rounded-1">
             <h5 className="text-white mb-3">Thông tin khách hàng</h5>
             <p><b>Tên:</b> {order.name}</p>
             <p><b>Email:</b> {order.user?.email || '—'}</p>
@@ -75,7 +75,7 @@ const OrderDetail = () => {
 
         {/* SẢN PHẨM */}
         <div className="col-md-8">
-          <div className="order-card">
+          <div className="order-card rounded-1">
             <h5 className="text-white mb-3">Sản phẩm</h5>
             {items.length === 0 ? (
               <p className="text-center">Không có sản phẩm nào.</p>

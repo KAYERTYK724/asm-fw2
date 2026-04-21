@@ -25,23 +25,23 @@ const ProductListAdmin = () => {
         fetchProducts();
     }, []);
 
-    const handleDelete = async (id, name) => {
-        const isConfirm = window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm: "${name}"?`);
-        
-        if (isConfirm) {
-            try {
-                await requestAPI({
-                    method: "DELETE",
-                    url: `/products/${id}`,
-                });
+    const handleDelete = async (product) => {
+        const isConfirm = window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm: "${product.name}"?`);
+        if (!isConfirm) return;
 
-                setProducts(products.filter(product => product.id !== id));
+        try {
+            await requestAPI({
+                method: "DELETE",
+                url: `/products/${product.id}`,
+            });
 
-                alert("Xóa sản phẩm thành công!");
-            } catch (error) {
-                console.error("Lỗi khi xóa sản phần:", error);
-                alert("Đã có lỗi xảy ra. Không thể xóa sản phẩm này.");
-            }
+            setProducts(prev => prev.filter(p => p.id !== product.id));
+
+            alert("Xóa sản phẩm thành công!");
+
+        } catch (error) {
+            const message = error.response?.data?.message || "Xóa thất bại";
+            alert(message);
         }
     };
 
@@ -123,7 +123,11 @@ const ProductListAdmin = () => {
                                             <Button as={Link} to={`/admin/editProduct/${product.id}`} size="sm" variant="warning" className="rounded-pill px-3">
                                                 <FaEdit />
                                             </Button>
-                                            <Button size="sm" variant="danger" className="rounded-pill px-3" onClick={() => handleDelete(product.id, product.name)}>
+                                            <Button 
+                                                size="sm" 
+                                                variant="danger" 
+                                                className="rounded-pill px-3" 
+                                                onClick={() => handleDelete(product)}>
                                                 <FaTrashAlt />
                                             </Button>
                                         </div>

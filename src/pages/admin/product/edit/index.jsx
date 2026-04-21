@@ -6,6 +6,7 @@ import { FaSave, FaEdit } from "react-icons/fa"; // Đổi icon
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useParams, useNavigate } from 'react-router-dom'; // Thêm hook điều hướng
+import UploadImage from '../../../../middlewares/cloude';
 import '../style.css'; 
 import requestAPI from "../../../../RequestAPI"; 
 
@@ -13,8 +14,9 @@ const EditProduct = () => {
     const { id } = useParams(); // Lấy ID sản phẩm từ URL
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
+    const [previewImage, setPreviewImage] = useState("");
     
-    const { register, handleSubmit, formState: { errors }, reset, control } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset, control,setValue, getValues } = useForm();
 
     // 1. Fetch danh mục và dữ liệu sản phẩm cũ
     useEffect(() => {
@@ -38,6 +40,7 @@ const EditProduct = () => {
                     status: String(product.status), // Radio cần string
                     description: product.description
                 });
+                setPreviewImage(product.image);
             } catch (error) {
                 console.error("Lỗi fetch dữ liệu:", error);
                 alert("Không tìm thấy sản phẩm!");
@@ -97,14 +100,36 @@ const EditProduct = () => {
 
                         {/* Hình ảnh */}
                         <Col md={12}>
-                            <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Hình ảnh (URL)</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    className="bg-dark text-white border-0" 
-                                    {...register('image', { required: 'Vui lòng nhập link ảnh' })}
+                            <Form.Label className="text-white">Hình ảnh</Form.Label>
+                                {previewImage && (
+                                    <div className="mb-2">
+                                        <img
+                                            src={previewImage}
+                                            alt="preview"
+                                            style={{
+                                                width: 120,
+                                                height: 120,
+                                                objectFit: "cover",
+                                                borderRadius: 8
+                                            }}
+                                        />
+                                    </div>
+                                )}
+
+                                <UploadImage
+                                    onUploaded={(url) => {
+                                        setValue("image", url);      
+                                        setPreviewImage(url);       
+                                    }}
                                 />
-                            </Form.Group>
+                                <input
+                                    type="hidden"
+                                    {...register("image", { required: "Ảnh không được trống" })}
+                                />
+
+                                {errors.image && (
+                                    <small className="text-danger">{errors.image.message}</small>
+                                )}
                         </Col>
 
                         {/* Giá và Danh mục */}
@@ -127,8 +152,24 @@ const EditProduct = () => {
                                     type="number" 
                                     step="0.01"
                                     className="bg-dark text-white border-0" 
-                                    {...register('sale_price')}
+                                    {...register('sale_price', {
+                                        validate: (value) => {
+                                            const price = Number(getValues("price"));
+                                            const sale = Number(value);
+                                            if (!value) return true;
+                                            if (sale >= price) {
+                                                return "Giá khuyến mãi phải nhỏ hơn giá bán!";
+                                            }
+                                            return true;
+                                        }
+                                    })}
                                 />
+
+                                {errors.sale_price && (
+                                    <small className="text-danger">
+                                        {errors.sale_price.message}
+                                    </small>
+                                )}
                             </Form.Group>
                         </Col>
 

@@ -48,10 +48,10 @@ const OrderList = () => {
   if (loading) return <div className="text-center text-white py-5">Đang tải...</div>;
 
   return (
-    <div className="order-page">
+    <div className="order-page p-4">
       <h3 className="order-title">Danh sách đơn hàng</h3>
 
-      <div className="order-card">
+      <div className="order-card rounded-0 p-4">
         <table className="order-table text-center align-middle">
           <thead>
             <tr>

@@ -6,8 +6,10 @@ import { FaSave, FaBoxOpen } from "react-icons/fa";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useParams, useNavigate } from 'react-router-dom';
+import UploadImage from '../../../../middlewares/cloude';
 import '../style.css'; 
-import requestAPI from "../../../../RequestAPI"; 
+import requestAPI from '../../../../RequestAPI';
+
 
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors }, watch, setValue, getValues, control} = useForm({
@@ -100,18 +102,15 @@ const AddProduct = () => {
                         {/* Hình ảnh sản phẩm */}
                         <Col md={12}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Hình ảnh (URL)</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    placeholder="Dán link hình ảnh sản phẩm..." 
-                                    className="bg-dark text-white border-0" 
-                                    {...register('image', {  // Đổi thành 'image'
-                                        required: 'Vui lòng cung cấp link ảnh!' 
-                                    })}
+                                <Form.Label className="text-white">Hình ảnh</Form.Label>
+
+                                <UploadImage 
+                                    onUploaded={(url) => setValue("image", url)}
                                 />
-                                {errors.image && // Đổi thành errors.image
+
+                                {errors.image && (
                                     <small className="text-danger">{errors.image.message}</small>
-                                }
+                                )}
                             </Form.Group>
                         </Col>
 
@@ -147,8 +146,23 @@ const AddProduct = () => {
                                     step="0.01"
                                     placeholder="Để trống nếu không giảm giá" 
                                     className="bg-dark text-white border-0" 
-                                    {...register('sale_price')}
+                                    {...register('sale_price', {
+                                        validate: (value) => {
+                                            const price = Number(watch('price')); 
+                                            const sale = Number(value);
+                                            if (!value) return true;
+                                            if (sale >= price) {
+                                                return 'Giá khuyến mãi phải nhỏ hơn giá bán!';
+                                            }
+                                            return true;
+                                        }
+                                    })}
                                 />
+                                {errors.sale_price && 
+                                    <small className="text-danger">
+                                        {errors.sale_price.message}
+                                    </small>
+                                }
                             </Form.Group>
                         </Col>
 

@@ -40,7 +40,7 @@ class UserController {
 
     static async create(req, res) {
         try {
-            const { email, password, name } = req.body;
+            const { email, password, name, phone } = req.body;
 
             if (!email || !password) {
                 return res.status(400).json({ message: "Thiếu email hoặc password" });
@@ -57,7 +57,8 @@ class UserController {
                 email,
                 username: email,
                 password: hashedPassword,
-                fullname: name
+                fullname: name,
+                phone : phone
             });
 
             const { password: pw, ...data } = user.toJSON();

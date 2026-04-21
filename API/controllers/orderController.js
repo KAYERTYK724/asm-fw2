@@ -119,11 +119,15 @@ class OrderController {
                 });
             } else {
                 // chưa có → tạo mới
+                const price = product.sale_price > 0 
+                    ? product.sale_price 
+                    : product.price;
+
                 item = await OrderDetailModel.create({
                     order_id: order.id,
                     product_id,
                     quantity,
-                    price: product.price
+                    price
                 });
             }
 
@@ -206,6 +210,44 @@ class OrderController {
             res.status(200).json({ message: "Đã xoá" });
 
         } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async checkout(req, res) {
+        try {
+            const { user_id, name, phone, address, email } = req.body;
+
+            // 1. tìm cart hiện tại
+            const order = await OrderModel.findOne({
+                where: {
+                    user_id,
+                    order_status: 0
+                },
+                include: ['orderDetails']
+            });
+
+            if (!order) {
+                return res.status(404).json({ message: "Giỏ hàng trống" });
+            }
+
+            await order.update({
+                name,
+                phone,
+                email,
+                address,
+                payments: 'cod',
+                payment_status: 0,
+                order_status: 1
+            });
+
+            return res.status(200).json({
+                message: "Đặt hàng COD thành công",
+                data: order
+            });
+
+        } catch (error) {
+            console.log(error);
             res.status(500).json({ error: error.message });
         }
     }

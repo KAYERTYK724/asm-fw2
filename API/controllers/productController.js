@@ -1,6 +1,8 @@
 const ProductModel = require('../models/productModel');
 const CategoryModel = require('../models/categoryModel');
-
+const OrderDetailModel = require('../models/orderDetailModel');
+const OrderModel = require('../models/orderModel');
+const { Op } = require('sequelize');
 class ProductController {
     static async get(req, res) {
         try {
@@ -79,13 +81,44 @@ class ProductController {
     static async delete(req, res) {
         try {
             const { id } = req.params;
-            const product = await ProductModel.findByPk(id);
-            
-            if (!product) return res.status(404).json({ message: "Sản phẩm không tồn tại" });
 
+            // 1️⃣ kiểm tra product tồn tại
+            const product = await ProductModel.findByPk(id);
+            if (!product) {
+                return res.status(404).json({ message: "Sản phẩm không tồn tại" });
+            }
+
+            // 2️⃣ kiểm tra có trong order chưa
+            const count = await OrderDetailModel.count({
+                include: [
+                    {
+                        model: OrderModel,
+                        required: true
+                    }
+                ],
+                where: {
+                    product_id: Number(id)
+                }
+            });
+
+            console.log("COUNT:", count);
+
+            // ❌ nếu có trong đơn hàng → chặn
+            if (count > 0) {
+                return res.status(400).json({
+                    message: "Không thể xóa vì sản phẩm đã có trong đơn hàng"
+                });
+            }
+
+            // ✅ cho xóa
             await product.destroy();
-            res.status(200).json({ message: "Xóa thành công" });
+
+            return res.status(200).json({
+                message: "Xóa sản phẩm thành công"
+            });
+
         } catch (error) {
+            console.log(error);
             res.status(500).json({ error: error.message });
         }
     }

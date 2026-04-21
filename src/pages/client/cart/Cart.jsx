@@ -28,11 +28,7 @@ const Cart = () => {
         url: `/orders/cart/${user.id}`,
       });
 
-      if (res && res.data) {
-        setItems(res.data.data || []);
-      } else {
-        setItems([]);
-      }
+      setItems(res?.data?.data || []);
     } catch (error) {
       console.log('Lỗi load cart:', error);
       setItems([]);
@@ -74,8 +70,15 @@ const Cart = () => {
     }
   };
 
-  // ✅ tính tổng tiền (anti crash)
-  const subtotal = items.reduce((sum, i) => sum + (i.product?.price || 0) * i.quantity, 0);
+  // ✅ format tiền
+  const formatVND = (price) =>
+    new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(price || 0);
+
+  // ✅ subtotal chuẩn (dùng item.price)
+  const subtotal = items.reduce((sum, i) => sum + (i.price || 0) * i.quantity, 0);
 
   return (
     <div className='cart-page'>
@@ -96,39 +99,62 @@ const Cart = () => {
           {items.length === 0 ? (
             <p>Giỏ hàng trống</p>
           ) : (
-            items.map((item) => (
-              <div className='cart-item' key={item.id}>
-                {/* PRODUCT */}
-                <div className='product'>
-                  <img src={item.product?.image} className='rounded-0' alt='' />
-                  <div>
-                    <p>{item.product?.name}</p>
-                    <span>{(item.product?.price || 0).toLocaleString()}đ</span>
+            items.map((item) => {
+              const product = item.product;
+              const isSale =
+                product?.sale_price &&
+                product.sale_price > 0 &&
+                product.sale_price < product.price;
+
+              return (
+                <div className='cart-item' key={item.id}>
+                  {/* PRODUCT */}
+                  <div className='product'>
+                    <img src={product?.image} alt='' />
+                    <div>
+                      <p>{product?.name}</p>
+
+                      {/* ✅ GIÁ */}
+                      {isSale ? (
+                        <>
+                          <span className='text-danger fw-bold'>{formatVND(item.price)}</span>
+                          <br />
+                          <small
+                            style={{
+                              textDecoration: 'line-through',
+                              color: '#999',
+                            }}
+                          >
+                            {formatVND(product.price)}
+                          </small>
+                        </>
+                      ) : (
+                        <span>{formatVND(item.price)}</span>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                {/* QUANTITY */}
-                <div>
-                  <input
-                    type='number'
-                    value={item.quantity}
-                    min='1'
-                    onChange={(e) => updateQty(item.id, parseInt(e.target.value))}
-                    className='qty-input rounded-0'
-                  />
-                </div>
+                  {/* QUANTITY */}
+                  <div>
+                    <input
+                      type='number'
+                      value={item.quantity}
+                      min='1'
+                      onChange={(e) => updateQty(item.id, parseInt(e.target.value))}
+                      className='qty-input rounded-0'
+                    />
+                  </div>
 
-                {/* TOTAL */}
-                <div className='total'>
-                  {((item.product?.price || 0) * item.quantity).toLocaleString()}đ
-                </div>
+                  {/* TOTAL */}
+                  <div className='total'>{formatVND(item.price * item.quantity)}</div>
 
-                {/* REMOVE */}
-                <button className='remove' onClick={() => removeItem(item.id)}>
-                  ×
-                </button>
-              </div>
-            ))
+                  {/* REMOVE */}
+                  <button className='remove' onClick={() => removeItem(item.id)}>
+                    ×
+                  </button>
+                </div>
+              );
+            })
           )}
 
           <div className='cart-actions'>
@@ -141,14 +167,15 @@ const Cart = () => {
         {/* RIGHT */}
         <div className='cart-summary rounded-0'>
           <h3>Tổng giỏ hàng</h3>
+
           <div className='summary-row'>
             <span>Tạm tính</span>
-            <span>{subtotal.toLocaleString()}đ</span>
+            <span>{formatVND(subtotal)}</span>
           </div>
 
           <div className='summary-row total'>
             <span>Tổng</span>
-            <span>{subtotal.toLocaleString()}đ</span>
+            <span>{formatVND(subtotal)}</span>
           </div>
 
           <button className='btn-checkout rounded-0'>

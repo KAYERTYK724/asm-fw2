@@ -22,6 +22,7 @@ const Register = () => {
       data: {
         name: data.name,      // thêm name
         email: data.email,    //đúng field
+        phone: data.phone,
         password: data.password,
       },
     });
@@ -88,6 +89,20 @@ const Register = () => {
             />
             {errors.email && (
               <small className="error-text">{errors.email.message}</small>
+            )}
+          </div>
+          {/* PHONE */}
+          <div className="wrap-input100">
+            <input
+              type="number"
+              className={`input100 ${errors.phone ? "input-error" : ""}`}
+              placeholder="Số điện thoại"
+              {...register("phone", {
+                required: "Vui lòng nhập số điện thoại"
+              })}
+            />
+            {errors.phone && (
+              <small className="error-text">{errors.phone.message}</small>
             )}
           </div>
 

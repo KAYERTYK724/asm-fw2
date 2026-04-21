@@ -16,9 +16,18 @@ const Order = connection.define('Order', {
         type: DataTypes.STRING(100),
         allowNull: false
     },
+    address: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      defaultValue: '',
+    },
     phone: {
         type: DataTypes.STRING(20),
         allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING(100),
+        allowNull: true
     },
     payments: {
         type: DataTypes.STRING(50),
