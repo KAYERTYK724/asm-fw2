@@ -120,21 +120,6 @@ const Product = () => {
                   </Accordion.Body>
                 </Accordion.Item>
 
-                {/* LỌC GIÁ */}
-                <Accordion.Item eventKey='2'>
-                  <Accordion.Header>LỌC GIÁ</Accordion.Header>
-                  <Accordion.Body>
-                    <ul className='filter-list price-list'>
-                      <li>$0.00 - $50.00</li>
-                      <li>$50.00 - $100.00</li>
-                      <li>$100.00 - $150.00</li>
-                      <li>$150.00 - $200.00</li>
-                      <li>$200.00 - $250.00</li>
-                      <li>$250.00+</li>
-                    </ul>
-                  </Accordion.Body>
-                </Accordion.Item>
-
                 {/* KÍCH THƯỚC */}
                 <Accordion.Item eventKey='3'>
                   <Accordion.Header>KÍCH THƯỚC</Accordion.Header>
@@ -238,14 +223,6 @@ const Product = () => {
               ))}
             </Row>
 
-            {/* PAGINATION */}
-            <Pagination className='justify-content-center mt-4 custom-pagination'>
-              <Pagination.Item active>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Ellipsis />
-              <Pagination.Item>21</Pagination.Item>
-            </Pagination>
           </Col>
         </Row>
       </Container>
