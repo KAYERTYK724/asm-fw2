@@ -51,7 +51,7 @@ const OrderList = () => {
     <div className="order-page p-4">
       <h3 className="order-title">Danh sách đơn hàng</h3>
 
-      <div className="order-card rounded-0 p-4">
+      <div className="order-card rounded-1 p-4">
         <table className="order-table text-center align-middle">
           <thead>
             <tr>
