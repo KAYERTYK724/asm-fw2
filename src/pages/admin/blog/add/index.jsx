@@ -90,7 +90,7 @@ const AddBlog = () => {
                 </h4>
                 <Form onSubmit={handleSubmit(onRegister)}>
                     <Row>
-                        <Col md={6}>
+                        <Col md={12}>
                             <Form.Group className="mb-3">
                                 <Form.Label className="text-white">Tiêu đề bài viết</Form.Label>
                                 <Form.Control
@@ -110,24 +110,6 @@ const AddBlog = () => {
                                 />
                                 {errors.title && (
                                     <small className="text-danger">{errors.title.message}</small>
-                                )}
-                            </Form.Group>
-                        </Col>
-                        <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Ngày đăng</Form.Label>
-                                <Form.Control
-                                    type="date"
-                                    className="bg-dark text-white border-0"
-                                    {...register('date', {
-                                        required: {
-                                            value: true,
-                                            message: 'Thời gian không được bỏ trống!',
-                                        },
-                                    })}
-                                />
-                                {errors.date && (
-                                    <small className="text-danger">{errors.date.message}</small>
                                 )}
                             </Form.Group>
                         </Col>

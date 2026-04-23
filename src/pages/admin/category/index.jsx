@@ -67,7 +67,6 @@ const CategoryListAdmin = () => {
               <tr>
                 <th scope='col'>#</th>
                 <th scope='col'>DANH MỤC</th>
-                <th scope='col'>TRẠNG THÁI</th>
                 <th scope='col'>HÀNH ĐỘNG</th>
               </tr>
             </thead>
@@ -83,11 +82,6 @@ const CategoryListAdmin = () => {
                   <tr key={c.id}>
                     <td>{index + 1}</td>
                     <td className='text-white'>{c.name}</td>
-                    <td>
-                      <Badge bg='success' className='rounded-pill'>
-                        Hiển thị
-                      </Badge>
-                    </td>
                     <td>
                       <div className='d-flex gap-2'>
                         <Button

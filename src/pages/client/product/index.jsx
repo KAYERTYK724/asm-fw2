@@ -1,7 +1,7 @@
 import './style.css';
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Accordion, Pagination } from 'react-bootstrap';
+import { Container, Row, Col, Form, Accordion } from 'react-bootstrap';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import requestAPI from '../../../RequestAPI';
 
